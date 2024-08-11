@@ -12,8 +12,9 @@
 </script>
 
 <template>
-  <div id="navbar" class="navbar flex gap-4 px-12 py-4">
+  <div id="navbar" class="navbar flex gap-4 px-8 py-2 mb-2 border-b border-white justify-center">
     <div class="text-lg">PokeLab</div>
+    <img class="logo h-8 w-8" src="/pokeball-icon.png" alt="Pokeball logo white" />
     <nav class="nav-items flex gap-4">
       <div class="nav-item justify-center text-lg" v-for="navItem in navItems">
         <RouterLink :to="'/' + navItem.link" :class="{
@@ -30,11 +31,12 @@
   #navbar {
     background-color: #880000;
     color: #ffffff;
+    font-family: "Oswald", sans-serif;
   }
   a {
     color: #ffffff;
   }
   .active {
-    color: #FF0000;
+    color: #FFAA00;
   }
 </style>
