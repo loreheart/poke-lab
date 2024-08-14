@@ -17,13 +17,73 @@
       }
     }
   })
+
+  const spriteUrl = "https://img.pokemondb.net/sprites/scarlet-violet/icon/"
+
+  const spriteByPokemon = (name: string) => {
+    return `${spriteUrl}${name}.png`
+  }
+
+  const selectPokemon = (pokemon: Pokemon) => {
+    console.log(pokemon)
+  }
 </script>
 
 <template>
-  <div>{{ pokemon.id }}: {{ pokemon.name }}</div>
+  <div class="pokemon-tile pokeball-shaped"
+        @click="() => selectPokemon(pokemon)">
+    <div class="sprite scale-110">
+      <img
+        :src="spriteByPokemon(pokemon.name)"
+        :alt="pokemon.name"
+      />
+    </div>
+    <div class="title-box pokeball-shaped">
+      <div class="title-text">
+        #{{ pokemon.id }} {{ pokemon.name }}
+      </div>
+    </div>
+  </div>
 
 </template>
 
 <style scoped>
+  .pokemon-tile {
+    position: relative;
+    background: linear-gradient(#b9e0de 25%, #73c0bc);
+    border: 2px solid #111;
+    margin: 1rem 1rem 2rem;
+    box-shadow: 8px 4px 8px #111;
+    cursor: pointer;
+    &:hover {
+      transition: all 1s ease-out;
+      transform: scale(1.2);
+    }
+    .sprite {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+    .title-box {
+      position: absolute;
+      top: 0;
+      right: -2px;
+      background: linear-gradient(
+        transparent 10%,
+        #af0b0b 10%,
+        #af0b0b 25%,
+        transparent 25%
+      );
+      .title-text {
+        text-transform: capitalize;
+        color: #fff;
+        position: absolute;
+        top: 18px;
+        left: 0;
+        right: 0;
+        margin: 0;
+      }
+    }
+  }
 
 </style>

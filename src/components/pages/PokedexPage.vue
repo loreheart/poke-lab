@@ -7,15 +7,15 @@
 
   const pokedex: Pokemon[] = pokedexStore.loadPokedex()
 
-  const limit = 1025
+  const limit = 81
 
 </script>
 
 <template>
-  <h1>Pokedex</h1>
+  <h1 class="text-4xl m-2">Pokedex</h1>
 
   <div class="pokedex flex flex-wrap justify-center" v-if="pokedex">
-    <div class="pokemon-tile w-64" v-for="pokemon in pokedex.slice(0, limit)">
+    <div class="pokemon-tileset" v-for="pokemon in pokedex.slice(0, limit)">
       <PokedexEntry :pokemon="pokemon" />
     </div>
     

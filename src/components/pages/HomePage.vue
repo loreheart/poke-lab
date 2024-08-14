@@ -7,7 +7,7 @@
 </script>
 
 <template>
-  <h1>PokeLab Home</h1>
+  <h1 class="text-4xl m-2">PokeLab Home</h1>
 
   <h2 class="text-2xl m-2">Stats</h2>
   <ul>

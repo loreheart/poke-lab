@@ -16,3 +16,9 @@ h6 {
 #app {
   font-family: "Lato", sans-serif;
 }
+
+@layer components {
+  .pokeball-shaped {
+    @apply h-40 w-40 rounded-full;
+  }
+}
