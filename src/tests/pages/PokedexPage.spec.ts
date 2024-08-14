@@ -3,18 +3,18 @@ import { setActivePinia, createPinia } from 'pinia'
 import { createTestingPinia } from '@pinia/testing'
 import { mount } from '@vue/test-utils'
 
-import { usePokedexPageStore } from '../stores/pokedex'
-import { Pokemon } from '../types/index'
+import PokedexPage from '../../components/pages/PokedexPage.vue'
+import { usePokedexPageStore } from '../../stores/pokedex'
+import { Pokemon } from '../../types/index'
 
-import Pokedex from '../components/pages/PokedexPage.vue'
 
-const wrapper = mount(Pokedex, {
+const wrapper = mount(PokedexPage, {
   global: {
     plugins: [createTestingPinia()],
   },
 })
 
-describe('Pokedex Page Store', () => {
+describe('Pokedex Page Component', () => {
   beforeEach(() => {
     // creates a fresh pinia and makes it active
     // so it's automatically picked up by any useStore() call

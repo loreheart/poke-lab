@@ -52,12 +52,13 @@
     position: relative;
     background: linear-gradient(#b9e0de 25%, #73c0bc);
     border: 2px solid #111;
-    margin: 1rem 1rem 2rem;
+    margin: 0.75rem;
     box-shadow: 8px 4px 8px #111;
     cursor: pointer;
     &:hover {
-      transition: all 1s ease-out;
-      transform: scale(1.2);
+      transition: all 0.1s linear;
+      transform: scale(1.1);
+      cursor: pointer;
     }
     .sprite {
       position: absolute;
@@ -68,6 +69,7 @@
       position: absolute;
       top: 0;
       right: -2px;
+      cursor: pointer;
       background: linear-gradient(
         transparent 10%,
         #af0b0b 10%,

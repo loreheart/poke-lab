@@ -3,12 +3,12 @@ import { setActivePinia, createPinia } from 'pinia'
 import { mount } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
 
-import AppHome from '../components/pages/HomePage.vue'
-import { mockRoute, mockRouter } from './mocks/routing'
-import { usePokedexPageStore } from '../stores/pokedex'
-import { Pokemon } from '../types/index'
+import HomePage from '../../components/pages/HomePage.vue'
+import { mockRoute, mockRouter } from '../mocks/routing'
+import { usePokedexPageStore } from '../../stores/pokedex'
+import { Pokemon } from '../../types/index'
 
-const wrapper = mount(AppHome, {
+const wrapper = mount(HomePage, {
   global: {
     mocks: {
       $route: mockRoute,
@@ -18,7 +18,7 @@ const wrapper = mount(AppHome, {
   }
 })
 
-describe('AppHome Component', () => {
+describe('Home Page Component', () => {
   beforeEach(() => {
     // creates a fresh pinia and makes it active
     // so it's automatically picked up by any useStore() call
