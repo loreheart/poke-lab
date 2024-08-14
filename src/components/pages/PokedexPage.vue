@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { usePokedexPageStore } from '../../stores/pokedex'
-  import PokedexEntry from '../../components/PokedexTile.vue'
+  import PokedexTile from '../../components/PokedexTile.vue'
   import { Pokemon } from '../../types/index'
 
   const pokedexStore = usePokedexPageStore()
@@ -16,7 +16,10 @@
 
   <div class="pokedex flex flex-wrap justify-center" v-if="pokedex">
     <div class="pokemon-tileset" v-for="pokemon in pokedex.slice(0, limit)">
-      <PokedexEntry :pokemon="pokemon" />
+      <RouterLink :to="'/pokemon/' + pokemon.id">
+        <PokedexTile :pokemon="pokemon" />
+      </RouterLink>
+      
     </div>
     
   </div>
