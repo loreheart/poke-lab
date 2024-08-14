@@ -1,15 +1,23 @@
 # PokeLab by Kaia and RJ
 
 ## Technologies
+
 Vue3
 Vite
 TypeScript
 Vue Router 4
 Tailwind
+Pinia
 
 ## To Add
-Pinia - in progress
+
 Nuxt
+
+## Data Strategy
+
+Pokedex Page: PokeApi through GraphQL
+Pokemon Detail Page: PokeApi through GraphQL
+Gym Leaders: Bulbapedia through json
 
 ### Built with Vue 3 + TypeScript + Vite
 

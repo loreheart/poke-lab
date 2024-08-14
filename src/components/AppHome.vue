@@ -18,11 +18,11 @@
   <h2 class="text-2xl m-2">Features in Progress</h2>
   <ul>
     <li>Pokedex page</li>
-    <li>Pokemon detail page</li>
   </ul>
 
   <h2 class="text-2xl m-2">Future Features Planned</h2>
   <ul>
+    <li>Pokemon detail page</li>
     <li>Gym Leaders</li>
     <li>Type Coverage Calculator</li>
     <li>Living Dex Tracker</li>
