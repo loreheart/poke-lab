@@ -2,31 +2,13 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import AppNavbar from '../components/AppNavbar.vue'
-
-const mockRoute = {
-  params: {
-    id: 1
-  },
-  fullPath: ''
-}
-const mockRouter = {
-  push: () => {}
-}
-
-const routeGlobals = {
-  global: {
-    mocks: {
-      $route: mockRoute,
-      $router: mockRouter
-    }
-  }
-}
+import { routeGlobalsWithRouting } from './mocks/routing'
 
 const emptyNav = mount(AppNavbar, {
   propsData: {
     navItems: []
   },
-  ...routeGlobals
+  ...routeGlobalsWithRouting
 })
 
 const navbar1 = mount(AppNavbar, {
@@ -38,7 +20,7 @@ const navbar1 = mount(AppNavbar, {
       }
     ]
   },
-  ...routeGlobals
+  ...routeGlobalsWithRouting
 })
 
 describe('AppNavbar component', async () => {

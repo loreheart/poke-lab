@@ -1,10 +1,41 @@
-import { expect, it } from 'vitest'
+import { expect, it, describe, beforeEach } from 'vitest'
+import { setActivePinia, createPinia } from 'pinia'
 import { mount } from '@vue/test-utils'
+import { createTestingPinia } from '@pinia/testing'
 
 import AppHome from '../components/AppHome.vue'
+import { mockRoute, mockRouter } from './mocks/routing'
+import { usePokedexPageStore } from '../stores/pokedex'
+import { Pokemon } from '../types/index'
 
-const wrapper = mount(AppHome);
+const wrapper = mount(AppHome, {
+  global: {
+    mocks: {
+      $route: mockRoute,
+      $router: mockRouter
+    },
+    plugins: [createTestingPinia()],
+  }
+})
 
-it('testing AppHome component', async () => {
-  expect(wrapper.text()).toContain('PokeLab Home')
+describe('AppHome Component', () => {
+  beforeEach(() => {
+    // creates a fresh pinia and makes it active
+    // so it's automatically picked up by any useStore() call
+    // without having to pass it to it: `useStore(pinia)`
+    setActivePinia(createPinia())
+  })
+
+
+  it('Loads pokedex stats', () => {
+    const pokedexStore = usePokedexPageStore()
+    const pokedex: Pokemon[] = pokedexStore.loadPokedex()
+    expect(pokedex.length).toBe(1025)
+  })
+
+  it('testing text', () => {
+    const pokedexStore = usePokedexPageStore()
+    pokedexStore.loadPokedex()
+    expect(wrapper.text()).toContain('PokeLab Home')
+  })
 })

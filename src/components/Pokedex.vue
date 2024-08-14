@@ -14,7 +14,7 @@
 <template>
   <h1>Pokedex</h1>
 
-  <div class="pokedex flex flex-wrap content-center" v-if="pokedex">
+  <div class="pokedex flex flex-wrap justify-center" v-if="pokedex">
     <div class="pokemon-tile w-64" v-for="pokemon in pokedex.slice(0, limit)">
       <PokedexEntry :pokemon="pokemon" />
     </div>
