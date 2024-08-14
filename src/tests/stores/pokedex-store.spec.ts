@@ -1,8 +1,8 @@
 import { describe, expect, it, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 
-import { usePokedexPageStore } from '../stores/pokedex'
-import { Pokemon } from '../types/index'
+import { usePokedexPageStore } from '../../stores/pokedex'
+import { Pokemon } from '../../types/index'
 
 describe('Pokedex Page Store', () => {
   beforeEach(() => {

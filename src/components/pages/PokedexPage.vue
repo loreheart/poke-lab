@@ -7,7 +7,7 @@
 
   const pokedex: Pokemon[] = pokedexStore.loadPokedex()
 
-  const limit = 81
+  const limit = 1025
 
 </script>
 
