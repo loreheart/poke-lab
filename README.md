@@ -1,10 +1,13 @@
 # PokeLab by Kaia and RJ
 
-## Features in Development
+## Current Features
 Pokedex page
 
-## Future Features Planned
+## Features in Development
+Pokedex page
 Pokemon detail page
+
+## Future Features Planned
 Gym Leaders
 Type Coverage Calculator
 Living Dex Tracker

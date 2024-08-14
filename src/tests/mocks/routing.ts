@@ -1,3 +1,5 @@
+import { vi } from 'vitest'
+
 export const mockRoute = {
   params: {
     id: 1
@@ -6,14 +8,6 @@ export const mockRoute = {
 }
 
 export const mockRouter = {
-  push: () => {}
-}
-
-export const routeGlobalsWithRouting = {
-  global: {
-    mocks: {
-      $route: mockRoute,
-      $router: mockRouter
-    }
-  }
+  push: vi.fn(),
+  resolve: vi.fn(),
 }

@@ -12,10 +12,6 @@
       text: "Pokedex",
       link: 'pokedex'
     },
-    {
-      text: "Bulbasaur",
-      link: 'pokemon/1'
-    },
   ]
 
 </script>

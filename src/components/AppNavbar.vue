@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { RouterLink } from 'vue-router'
   import type { PropType } from 'vue'
   import { NavItem } from '../types'
 
@@ -17,9 +18,9 @@
       PokeLab
     </div>
     <img class="logo h-8 w-8" src="/pokeball-icon.png" alt="Pokeball logo white" />
-    <nav class="nav-items flex gap-4">
+    <nav class="nav-items flex gap-4" v-if="navItems">
       <div class="nav-item justify-center text-lg" v-for="navItem in navItems">
-        <RouterLink :to="'/' + navItem.link" active-class="active">
+        <RouterLink :to="'/' + navItem.link" active-class="active" v-if="navItem">
           {{ navItem.text }}
         </RouterLink>
       </div>

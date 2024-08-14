@@ -37,15 +37,17 @@ export const usePokedexPageStore = defineStore('pokedex-page', {
       const hasNext = (dexNum >= 1 && dexNum < 1025)
       
       if (hasPrevious) {
-        previous = this.pokedex[dexNum - 1 - 1]
+        const prevId = +dexNum - 1
+        previous = this.pokedex[prevId - 1]
       }
 
       if (hasNext) {
-        next = this.pokedex[dexNum + 1 - 1]
+        const nextId = +dexNum + 1
+        next = this.pokedex[nextId - 1]
       }
 
       const pokemon = {
-        ...this.pokedex[dexNum - 1],
+        ...this.pokedex[+dexNum - 1],
         previous,
         next,
       }
