@@ -8,7 +8,7 @@ Vue Router 4
 Tailwind
 
 ## To Add
-Pinia
+Pinia - in progress
 Nuxt
 
 ### Built with Vue 3 + TypeScript + Vite

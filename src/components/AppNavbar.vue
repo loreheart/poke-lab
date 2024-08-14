@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type { PropType } from 'vue';
+  import type { PropType } from 'vue'
   import { NavItem } from '../types'
 
   defineProps({
