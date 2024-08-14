@@ -1,9 +1,8 @@
 <script setup lang="ts">
-  import { usePokedexPageStore } from '../stores/pokedex'
-  import { Pokemon } from '../types/index'
+  import { usePokedexPageStore } from '../../stores/pokedex'
+  import { Pokemon } from '../../types/index'
 
   const pokedexStore = usePokedexPageStore()
-
   const pokedex: Pokemon[] = pokedexStore.loadPokedex()
 </script>
 

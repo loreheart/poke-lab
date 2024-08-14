@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { usePokedexPageStore } from '../stores/pokedex'
-  import PokedexEntry from '../components/PokedexTile.vue'
-  import { Pokemon } from '../types/index'
+  import { usePokedexPageStore } from '../../stores/pokedex'
+  import PokedexEntry from '../../components/PokedexTile.vue'
+  import { Pokemon } from '../../types/index'
 
   const pokedexStore = usePokedexPageStore()
 

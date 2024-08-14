@@ -3,7 +3,7 @@ import { setActivePinia, createPinia } from 'pinia'
 import { mount } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
 
-import AppHome from '../components/AppHome.vue'
+import AppHome from '../components/pages/HomePage.vue'
 import { mockRoute, mockRouter } from './mocks/routing'
 import { usePokedexPageStore } from '../stores/pokedex'
 import { Pokemon } from '../types/index'

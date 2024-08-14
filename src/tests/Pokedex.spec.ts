@@ -6,7 +6,7 @@ import { mount } from '@vue/test-utils'
 import { usePokedexPageStore } from '../stores/pokedex'
 import { Pokemon } from '../types/index'
 
-import Pokedex from '../components/Pokedex.vue'
+import Pokedex from '../components/pages/PokedexPage.vue'
 
 const wrapper = mount(Pokedex, {
   global: {

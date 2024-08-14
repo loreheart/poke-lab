@@ -1,7 +1,7 @@
 import { createMemoryHistory, createRouter } from 'vue-router'
 
-import AppHome from './components/AppHome.vue'
-import Pokedex from './components/Pokedex.vue'
+import AppHome from './components/pages/HomePage.vue'
+import Pokedex from './components/pages/PokedexPage.vue'
 
 const routes = [
   { path: '/', component: AppHome },
