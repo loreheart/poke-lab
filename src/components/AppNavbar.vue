@@ -9,6 +9,10 @@
       default: () => []
     }
   })
+
+  const isActive = (navItem: NavItem, routePath: string) => {
+    return ('/' + navItem.link) === routePath
+  }
 </script>
 
 <template>
@@ -18,7 +22,7 @@
     <nav class="nav-items flex gap-4">
       <div class="nav-item justify-center text-lg" v-for="navItem in navItems">
         <RouterLink :to="'/' + navItem.link" :class="{
-          active: '/' + navItem.link === $route.fullPath
+          active: isActive(navItem, $route.fullPath)
         }">
           {{ navItem.text }}
         </RouterLink>
