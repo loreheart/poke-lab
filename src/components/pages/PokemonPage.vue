@@ -1,37 +1,48 @@
 <script setup lang="ts">
+  import { watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
   import { usePokedexPageStore } from '../../stores/pokedex'
   import { Pokemon } from '../../types/index'
+  import { getBigBulbaImg } from '../../helpers'
+
+  let dexNum: string | number, imageUrl: string, pokemon: Pokemon
 
   const route = useRoute()
   const router = useRouter()
 
   const pokedexStore = usePokedexPageStore()
 
-  let dexNum = parseInt(route.params.id as string)
-
-  let pokemon: Pokemon = pokedexStore.loadPokemon(dexNum)
-
-  const getBigBulbaImg = (pokemon: Pokemon) => {
-
-    const urlRoot = "https://bifrost.loreheart.com/projects/pokedex/bulbapedia"
+  const loadPokemon = (dexNum: string | number) => {
+    pokemon = pokedexStore.loadPokemon(dexNum)
+    if (pokemon) {
+      imageUrl = getBigBulbaImg(pokemon)
+    }
     
-    const idString: string = `${pokemon.id}`.padStart(4, '0')
-    const capitalName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
-    const urlFriendlyName = capitalName.replace('-', '%20')
-    return `${urlRoot}/${idString}%20${urlFriendlyName}.png`
   }
-
-  let imageUrl = getBigBulbaImg(pokemon)
 
   const updatePokemon = (newPokemon: Pokemon) => {
     dexNum = newPokemon.id
-    pokemon = pokedexStore.loadPokemon(dexNum)
-    imageUrl = getBigBulbaImg(pokemon)
+    loadPokemon(dexNum)
     router.push(`/pokemon/${dexNum}`)
   }
 
+  if (route.params.id) {
+    dexNum = parseInt(route.params.id as string)
+    if (dexNum) {
+      loadPokemon(dexNum)
+    }
+  }
+
+  watch(
+    () => route.params.id,
+    async newId => {
+      dexNum = parseInt(newId as string)
+      if (dexNum) {
+        loadPokemon(dexNum)
+      }
+    }
+  )
 
 </script>
 
@@ -40,8 +51,8 @@
     <div class="dex-left">
       <div class="top-nav">
         <div class="previous-pokemon" v-if="pokemon.previous">
-          <span class="text-xl font-bold cursor-pointer" @click="updatePokemon(pokemon.previous)">
-            &#9668; #{{ pokemon.previous.id }} {{ pokemon.previous.name }}
+          <span class="text-xl font-bold capitalize cursor-pointer" @click="updatePokemon(pokemon.previous)">
+            &#9668; #{{ pokemon.previous.id }} {{ pokemon.previous.name.replace("-", " ") }}
           </span>
         </div>
       </div>
@@ -49,14 +60,14 @@
         <img :src="imageUrl" :alt="pokemon.name">
       </div>
       <h1 class="text-4xl m-2 capitalize text-white font-bold">
-        #{{ pokemon.id }} {{ pokemon.name }}
+        #{{ pokemon.id }} {{ pokemon.name.replace("-", " ") }}
       </h1>
     </div>
     <div class="dex-right">
       <div class="top-nav">
         <div class="next-pokemon" v-if="pokemon.next">
-          <span class="text-xl font-bold cursor-pointer" @click="updatePokemon(pokemon.next)">
-            #{{ pokemon.next.id }} {{ pokemon.next.name }} &#9658;
+          <span class="text-xl font-bold capitalize cursor-pointer" @click="updatePokemon(pokemon.next)">
+            #{{ pokemon.next.id }} {{ pokemon.next.name.replace("-", " ") }} &#9658;
           </span>
           
         </div>

@@ -5,7 +5,7 @@ import PokedexPage from './components/pages/PokedexPage.vue'
 import PokemonPage from './components/pages/PokemonPage.vue'
 
 
-const routes = [
+export const routes = [
   { path: '/', component: HomePage },
   { path: '/pokedex', component: PokedexPage },
   { path: '/pokemon/:id', component: PokemonPage },

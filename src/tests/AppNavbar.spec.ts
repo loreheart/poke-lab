@@ -4,6 +4,8 @@ import { mount } from '@vue/test-utils'
 import AppNavbar from '../components/AppNavbar.vue'
 import { mockRoute, mockRouter } from './mocks/routing'
 
+import router from '../router'
+
 const emptyNav = mount(AppNavbar, {
   propsData: {
     navItems: []
@@ -11,7 +13,7 @@ const emptyNav = mount(AppNavbar, {
   global: {
     mocks: {
       $route: mockRoute,
-      $router: mockRouter
+      $router: router
     }
   }
 })

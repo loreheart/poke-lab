@@ -27,31 +27,32 @@ export const usePokedexPageStore = defineStore('pokedex-page', {
       }
       return this.pokedex
     },
-    loadPokemon(dexNum: number): Pokemon {
-      this.loadPokedex()
+    loadPokemon(dexNum: number | string): Pokemon {
+      const pokedex = this.loadPokedex()
+
+      const dexNumInt = parseInt(`${dexNum}`)
       
       let previous = null
       let next = null
 
-      const hasPrevious = (dexNum > 1 && dexNum <= 1025)
-      const hasNext = (dexNum >= 1 && dexNum < 1025)
+      const hasPrevious = (dexNumInt > 1 && dexNumInt <= 1025)
+      const hasNext = (dexNumInt >= 1 && dexNumInt < 1025)
       
       if (hasPrevious) {
-        const prevId = +dexNum - 1
-        previous = this.pokedex[prevId - 1]
+        const prevId = +dexNumInt - 1
+        previous = pokedex[prevId - 1]
       }
 
       if (hasNext) {
-        const nextId = +dexNum + 1
-        next = this.pokedex[nextId - 1]
+        const nextId = +dexNumInt + 1
+        next = pokedex[nextId - 1]
       }
 
       const pokemon = {
-        ...this.pokedex[+dexNum - 1],
+        ...pokedex[+dexNumInt - 1],
         previous,
         next,
       }
-      console.log(pokemon)
 
       return pokemon
     }

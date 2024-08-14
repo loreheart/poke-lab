@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import { RouterLink } from 'vue-router'
   import type { PropType } from 'vue'
   import { NavItem } from '../types'
 

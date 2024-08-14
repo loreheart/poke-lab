@@ -40,7 +40,7 @@
     </div>
     <div class="title-box pokeball-shaped">
       <div class="title-text">
-        #{{ pokemon.id }} {{ pokemon.name }}
+        #{{ pokemon.id }} {{ pokemon.name.replace("-", " ") }}
       </div>
     </div>
   </div>
