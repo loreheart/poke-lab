@@ -15,7 +15,7 @@
   <h1 class="text-4xl m-2">Pokedex</h1>
 
   <div class="pokedex flex flex-wrap justify-center" v-if="pokedex">
-    <div class="pokemon-tileset" v-for="pokemon in pokedex.slice(0, limit)">
+    <div class="pokemon-tileset" v-for="pokemon in pokedex.slice(0, limit)" :key="`poke-tile-${pokemon.name}`">
       <RouterLink :to="'/pokemon/' + pokemon.id">
         <PokedexTile :pokemon="pokemon" />
       </RouterLink>

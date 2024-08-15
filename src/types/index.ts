@@ -1,21 +1,21 @@
 export interface PokemonType {
-  name: string;
+  name: string
 }
 
 export interface Type {
-  type: PokemonType;
+  type: PokemonType
 }
 
 export interface Pokemon {
-  id: number;
-  name: string;
-  types: Type[];
-  previous?: Pokemon | null;
-  next?: Pokemon | null;
+  id: number
+  name: string
+  types: Type[]
+  previous?: Pokemon | null
+  next?: Pokemon | null
 }
 
 
 export interface NavItem {
-  text: String
-  link: String
+  text: string
+  link: string
 }
