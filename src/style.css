@@ -26,3 +26,31 @@ body {
 #app {
   text-align: center;
 }
+
+/* https://www.w3schools.com/howto/howto_css_arrows.asp */
+.arrow {
+  border: solid white;
+  border-width: 0 0.25rem 0.25rem 0;
+  display: inline-block;
+  padding: 0.25rem;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}

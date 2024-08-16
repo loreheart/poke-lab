@@ -1,5 +1,7 @@
 <script setup lang="ts">
+  import { watch, ref, Ref } from 'vue'
   import AppNavbar from './AppNavbar.vue'
+  import { useRoute } from 'vue-router'
 
   import { NavItem } from '../types'
 
@@ -14,11 +16,26 @@
     },
   ]
 
+  const route = useRoute()
+
+  const routeText: Ref<string> = ref('')
+  
+  watch(
+    () => route.fullPath,
+    async newRouteFullPath => {
+      console.log('route change')
+      routeText.value = newRouteFullPath
+    }
+  )
+
 </script>
 
 <template>
   <AppNavbar :navItems="navItems" />
   <main>
+    <div class="route-bread text-xl text-center color-white">
+      Route: {{ routeText }}
+    </div>
     <RouterView />
   </main>
 </template>

@@ -1,60 +1,38 @@
 import { defineStore } from 'pinia'
+import { ref, Ref } from 'vue'
 
 import { Pokemon } from '../types/index'
 import pokedexData from '../data/pokedex-with-types.json'
+import { getPrevAndNext } from '../helpers'
 
-interface PokedexPageStore {
-  loaded: boolean
-  pokedex: Pokemon[]
-}
+export const usePokedexPageStore = defineStore('pokedex-page', () => {
+  let loaded = false
+  let pokedex: Ref<Pokemon[]> = ref([])
 
-export const usePokedexPageStore = defineStore('pokedex-page', {
-  state: () => ({
-    loaded: false,
-    pokedex: []
-  } as PokedexPageStore),
-  actions: {
-    loadPokedex(): Pokemon[] {
-      if(!this.loaded) {
-        console.log("LOADING pokedexData", pokedexData)
-        console.log("^ this should only happen once!")
-  
-        const { pokemon }: { pokemon: Pokemon[] } = pokedexData
-        
-        this.pokedex = pokemon
+  const loadPokedex = (): Pokemon[] => {
+    if(!loaded) {
+      console.log("LOADING pokedexData", pokedexData)
+      console.log("^ this should only happen once!")
 
-        this.loaded = true
-      }
-      return this.pokedex
-    },
-    loadPokemon(dexNum: number | string): Pokemon {
-      const pokedex = this.loadPokedex()
-
-      const dexNumInt = parseInt(`${dexNum}`)
+      const { pokemon }: { pokemon: Pokemon[] } = pokedexData
       
-      let previous = null
-      let next = null
+      pokedex.value = pokemon
 
-      const hasPrevious = (dexNumInt > 1 && dexNumInt <= 1025)
-      const hasNext = (dexNumInt >= 1 && dexNumInt < 1025)
-      
-      if (hasPrevious) {
-        const prevId = +dexNumInt - 1
-        previous = pokedex[prevId - 1]
-      }
-
-      if (hasNext) {
-        const nextId = +dexNumInt + 1
-        next = pokedex[nextId - 1]
-      }
-
-      const pokemon = {
-        ...pokedex[+dexNumInt - 1],
-        previous,
-        next,
-      }
-
-      return pokemon
+      loaded = true
     }
+    return pokedex.value
+  }
+
+  const loadPokemon = (dexNum: number | string): Pokemon => {
+    console.log('loadPokemon')
+    const pokedex = loadPokedex()
+
+    return getPrevAndNext(pokedex, dexNum)
+  }
+
+  return {
+    pokedex,
+    loadPokedex,
+    loadPokemon
   }
 })

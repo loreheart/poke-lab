@@ -18,3 +18,31 @@ export const getBigBulbaImg = (pokemon: Pokemon) => {
 
   return `${urlRoot}/${idString}%20${urlFriendlyName}.png`
 }
+
+export const getPrevAndNext = (
+  pokedex: Pokemon[],
+  dexNum: number | string
+): Pokemon => {
+  let previous = null, next = null
+  const dexNumInt = parseInt(`${dexNum}`)
+
+  const hasPrevious = (dexNumInt > 1 && dexNumInt <= 1025)
+  const hasNext = (dexNumInt >= 1 && dexNumInt < 1025)
+
+  const pokemon = pokedex[+dexNumInt - 1]
+  
+  if (hasPrevious) {
+    const prevId = +dexNumInt - 1
+    previous = pokedex[prevId - 1]
+  }
+
+  if (hasNext) {
+    const nextId = +dexNumInt + 1
+    next = pokedex[nextId - 1]
+  }
+  return {
+    ...pokemon,
+    previous,
+    next,
+  }
+}

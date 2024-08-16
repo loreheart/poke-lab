@@ -20,14 +20,16 @@ TypeScript
 Vue Router 4
 Tailwind
 Pinia
+ESLint
+Vitest
 
 ## To Add
 Nuxt
 
 ## Data Strategy
-Pokedex Page: PokeApi through GraphQL
-Pokemon Detail Page: PokeApi through GraphQL
-Gym Leaders: Bulbapedia through json
+Pokedex Page: PokeApi through GraphQL - statically saved as json
+Pokemon Detail Page: PokeApi through GraphQL - dynamically fetched, then saved in localstorage
+Gym Leaders: Bulbapedia through json - need middle munging
 
 ### Built with Vue 3 + TypeScript + Vite
 This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.

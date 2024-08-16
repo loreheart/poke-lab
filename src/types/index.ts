@@ -7,9 +7,9 @@ export interface Type {
 }
 
 export interface Pokemon {
-  id: number
-  name: string
-  types: Type[]
+  id?: number
+  name?: string
+  types?: Type[]
   previous?: Pokemon | null
   next?: Pokemon | null
 }
