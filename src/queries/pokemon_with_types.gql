@@ -1,0 +1,11 @@
+query pokemon_with_types {
+  pokemon: pokemon_v2_pokemon(where: {is_default: {_eq: true}}) {
+    id: pokemon_species_id
+    name
+    types: pokemon_v2_pokemontypes {
+      type: pokemon_v2_type {
+        name
+      }
+    }
+  }
+}

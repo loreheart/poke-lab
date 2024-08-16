@@ -25,13 +25,13 @@
   }
 
   const selectPokemon = (pokemon: Pokemon) => {
-    console.log(pokemon)
+    console.log('selectPokemon', pokemon)
   }
 </script>
 
 <template>
   <div class="pokemon-tile pokeball-shaped"
-        @click="() => selectPokemon(pokemon)">
+        @click="selectPokemon(pokemon)">
     <div class="sprite scale-110">
       <img
         :src="spriteByPokemon(pokemon.name)"

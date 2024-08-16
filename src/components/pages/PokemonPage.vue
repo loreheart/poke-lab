@@ -16,7 +16,7 @@
   const pokedexStore = usePokedexPageStore()
 
   const loadPokemon = (dexNum: string): Pokemon | void => {
-    if (!dexNum) return
+    if (!dexNum || pokemon.value && pokemon.value.id === +dexNum) return
     const loadedPokemon = pokedexStore.loadPokemon(dexNum)
     if (loadedPokemon) {
       imageUrl = getBigBulbaImg(loadedPokemon)
@@ -31,7 +31,6 @@
   }
 
   if (route.params.id) {
-    console.log('First route gate', route.params.id)
     loadPokemon(route.params.id as string)
   }
 

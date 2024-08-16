@@ -23,7 +23,6 @@
   watch(
     () => route && route.path,
     async newRoutePath => {
-      console.log('route change')
       routeText.value = newRoutePath
     }
   )

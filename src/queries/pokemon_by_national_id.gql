@@ -1,0 +1,57 @@
+query pokemon_by_national_id($pokemon_species_id: Int) {
+  species: pokemon_v2_pokemonspeciesname(where: {
+    pokemon_species_id: {_eq: $pokemon_species_id}, 
+    language_id: {_eq: 9}
+  }) {
+    name
+    genus
+  }
+  pokemon: pokemon_v2_pokemon(where: {
+    pokemon_species_id: {_eq: $pokemon_species_id}
+  }) {
+    id: pokemon_species_id
+    name
+    height
+    weight
+    is_default
+    specy: pokemon_v2_pokemonspecy {
+      gender_rate
+      is_legendary
+      is_mythical
+      capture_rate
+      generation_id
+      is_baby
+      egggroups: pokemon_v2_pokemonegggroups {
+        egggroup: pokemon_v2_egggroup {
+          name
+        }
+      }
+      flavor: pokemon_v2_pokemonspeciesflavortexts(
+        where: {language_id: {_eq: 9}}
+      ) {
+        
+        flavor_text
+        game: pokemon_v2_version {
+          name
+        }
+      }
+    }
+    stats: pokemon_v2_pokemonstats {
+      base_stat
+      effort
+      stat: pokemon_v2_stat {
+        name
+      }
+    }
+    abilities: pokemon_v2_pokemonabilities {
+      ability: pokemon_v2_ability {
+        name
+      }
+    }
+    types: pokemon_v2_pokemontypes {
+      type: pokemon_v2_type {
+        name
+      }
+    }
+  }
+}
