@@ -21,10 +21,10 @@
   const routeText: Ref<string> = ref('')
   
   watch(
-    () => route.fullPath,
-    async newRouteFullPath => {
+    () => route && route.path,
+    async newRoutePath => {
       console.log('route change')
-      routeText.value = newRouteFullPath
+      routeText.value = newRoutePath
     }
   )
 

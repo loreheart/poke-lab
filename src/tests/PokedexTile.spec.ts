@@ -2,25 +2,11 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import PokedexTile from '../components/PokedexTile.vue'
+import { testPokemon } from './mocks/pokemon'
 
 const wrapper = mount(PokedexTile, {
   propsData: {
-    pokemon: {
-      id: 1,
-      name: "bulbasaur", 
-      types: [
-        {
-          type: {
-            name: "grass"
-          }
-        },
-        {
-          type: {
-            name: "poison"
-          }
-        }
-      ]
-    }
+    pokemon: testPokemon
   }
 })
 

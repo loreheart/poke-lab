@@ -7,11 +7,11 @@ import { getPrevAndNext } from '../helpers'
 
 export const usePokedexPageStore = defineStore('pokedex-page', () => {
   let loaded = false
-  let pokedex: Ref<Pokemon[]> = ref([])
+  const pokedex: Ref<Pokemon[]> = ref([])
 
   const loadPokedex = (): Pokemon[] => {
     if(!loaded) {
-      console.log("LOADING pokedexData", pokedexData)
+      console.log("LOADING pokedexData", pokedexData.pokemon.length)
       console.log("^ this should only happen once!")
 
       const { pokemon }: { pokemon: Pokemon[] } = pokedexData
@@ -24,10 +24,7 @@ export const usePokedexPageStore = defineStore('pokedex-page', () => {
   }
 
   const loadPokemon = (dexNum: number | string): Pokemon => {
-    console.log('loadPokemon')
-    const pokedex = loadPokedex()
-
-    return getPrevAndNext(pokedex, dexNum)
+    return getPrevAndNext(loadPokedex(), dexNum)
   }
 
   return {

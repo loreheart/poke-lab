@@ -27,21 +27,21 @@
     }
   })
 
-  const pokemonImg = getBigBulbaImg(props.pokemon)
+  const pokemonImg = (pokemon: Pokemon) => getBigBulbaImg(pokemon)
 </script>
 
 <template>
-  <div v-if="pokemon" class="flex content-center justify-center gap-4" @click="$emit('updatePokemon', pokemon)">
+  <div v-if="pokemon" class="flex content-center justify-center gap-4" @click="$emit('updatePokemon', { ...pokemon })">
     <div v-if="props.side === 'left'" class="mt-2">
       <i class="arrow left h-4 w-4 mt-2"></i>
     </div>
     <img v-if="props.side === 'right'" class="pokemon-view h-12 w-12 rounded-full"
-      :src="pokemonImg" :alt="pokemon.name">
+      :src="pokemonImg(pokemon)" :alt="pokemon.name">
     <div class="text-xl font-bold capitalize cursor-pointer content-center">
       #{{ pokemon.id }} {{ pokemon.name.replace("-", " ") }}
     </div>
     <img v-if="props.side === 'left'" class="pokemon-view h-12 w-12 rounded-full"
-      :src="pokemonImg" :alt="pokemon.name">
+      :src="pokemonImg(pokemon)" :alt="pokemon.name">
     <div v-if="props.side === 'right'" class="mt-2">
       <i class="arrow right h-4 w-4 mt-2"></i>
     </div>
@@ -49,5 +49,7 @@
 </template>
 
 <style scoped>
-
+  .pokemon-view {
+    background: linear-gradient(#b9e0de 25%, #73c0bc)
+  }
 </style>

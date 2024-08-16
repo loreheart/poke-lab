@@ -11,11 +11,11 @@
   let imageUrl: string
 
   const route = useRoute()
-  // const router = useRouter()
+  const router = useRouter()
 
   const pokedexStore = usePokedexPageStore()
 
-  const loadPokemon = (dexNum: string | number | undefined): Pokemon | void => {
+  const loadPokemon = (dexNum: string): Pokemon | void => {
     if (!dexNum) return
     const loadedPokemon = pokedexStore.loadPokemon(dexNum)
     if (loadedPokemon) {
@@ -25,18 +25,19 @@
     }
   }
 
-  const updatePokemonOnRoute = (newId: string | string[]) => {
-    loadPokemon(Array.isArray(newId) ? newId.shift() : newId)
+  const updatePokemonOnRoute = (newId: string) => {
+    router.push(`/pokemon/${newId}`)
+    loadPokemon(newId)
   }
 
   if (route.params.id) {
     console.log('First route gate', route.params.id)
-    updatePokemonOnRoute(route.params.id)
+    loadPokemon(route.params.id as string)
   }
 
   watch(
     () => route.params.id,
-    async newId => updatePokemonOnRoute(newId)
+    async newId => updatePokemonOnRoute(newId as string)
   )
 </script>
 
@@ -45,7 +46,7 @@
     <div class="dex-left">
       <div class="top-nav">
         <PokedexMiniNav v-if="pokemon.previous" :pokemon="pokemon.previous"
-        side="left" @updatePokemon="updatePokemonOnRoute(pokemon.previous.id)" />
+        side="left" @updatePokemon="updatePokemonOnRoute(`${pokemon.previous.id}`)" />
       </div>
       <div class="pokemon-view flex justify-center">
         <img :src="imageUrl" :alt="pokemon.name">
@@ -57,7 +58,7 @@
     <div class="dex-right">
       <div class="top-nav">
         <PokedexMiniNav v-if="pokemon.next" :pokemon="pokemon.next"
-        side="right" @updatePokemon="updatePokemonOnRoute(pokemon.next.id)" />
+        side="right" @updatePokemon="updatePokemonOnRoute(`${pokemon.next.id}`)" />
       </div>
     </div>
   </div>
