@@ -5,15 +5,7 @@ import graphqlLoader from 'vite-plugin-graphql-loader'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue({
-    template: {
-      compilerOptions: {
-
-      }
-    }
-  }),
-  graphqlLoader()
-],
+  plugins: [vue(), graphqlLoader()],
   test: {
     globals:true,
     environment: 'happy-dom',

@@ -10,16 +10,19 @@ importers:
     dependencies:
       '@apollo/client':
         specifier: ^3.11.4
-        version: 3.11.4(graphql@16.9.0)
+        version: 3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)
       '@vue/apollo-components':
         specifier: ^4.0.0
-        version: 4.0.0(@apollo/client@3.11.4(graphql@16.9.0))(vue@3.4.37(typescript@5.5.4))
+        version: 4.0.0(@apollo/client@3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(vue@3.4.37(typescript@5.5.4))
       '@vue/apollo-composable':
         specifier: ^4.1.0
-        version: 4.1.0(@apollo/client@3.11.4(graphql@16.9.0))(graphql@16.9.0)(typescript@5.5.4)(vue@3.4.37(typescript@5.5.4))
+        version: 4.1.0(@apollo/client@3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(graphql@16.9.0)(typescript@5.5.4)(vue@3.4.37(typescript@5.5.4))
       '@vue/apollo-option':
         specifier: ^4.0.0
-        version: 4.0.0(@apollo/client@3.11.4(graphql@16.9.0))(vue@3.4.37(typescript@5.5.4))
+        version: 4.0.0(@apollo/client@3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(vue@3.4.37(typescript@5.5.4))
+      graphql:
+        specifier: ^16.9.0
+        version: 16.9.0
       graphql-tag:
         specifier: ^2.12.6
         version: 2.12.6(graphql@16.9.0)
@@ -1085,6 +1088,12 @@ packages:
     peerDependencies:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
+  graphql-ws@5.16.0:
+    resolution: {integrity: sha512-Ju2RCU2dQMgSKtArPbEtsK5gNLnsQyTNIo/T7cZNp96niC1x0KdJNZV0TIoilceBPQwfb5itrGl8pkFeOUMl4A==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      graphql: '>=0.11 <=16'
+
   graphql@16.9.0:
     resolution: {integrity: sha512-GGTKBX4SD7Wdb8mqeDLni2oaRGYQWjWHGKPQ24ZMnUtKfcsVoiv4uX8+LJr1K6U5VW2Lu1BwJnj7uiori0YtRw==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
@@ -1982,7 +1991,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@apollo/client@3.11.4(graphql@16.9.0)':
+  '@apollo/client@3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       '@wry/caches': 1.0.1
@@ -1999,6 +2008,8 @@ snapshots:
       ts-invariant: 0.10.3
       tslib: 2.6.3
       zen-observable-ts: 1.2.5
+    optionalDependencies:
+      graphql-ws: 5.16.0(graphql@16.9.0)
     transitivePeerDependencies:
       - '@types/react'
 
@@ -2398,16 +2409,16 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.0.8
 
-  '@vue/apollo-components@4.0.0(@apollo/client@3.11.4(graphql@16.9.0))(vue@3.4.37(typescript@5.5.4))':
+  '@vue/apollo-components@4.0.0(@apollo/client@3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(vue@3.4.37(typescript@5.5.4))':
     dependencies:
-      '@vue/apollo-option': 4.0.0(@apollo/client@3.11.4(graphql@16.9.0))(vue@3.4.37(typescript@5.5.4))
+      '@vue/apollo-option': 4.0.0(@apollo/client@3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(vue@3.4.37(typescript@5.5.4))
       vue: 3.4.37(typescript@5.5.4)
     transitivePeerDependencies:
       - '@apollo/client'
 
-  '@vue/apollo-composable@4.1.0(@apollo/client@3.11.4(graphql@16.9.0))(graphql@16.9.0)(typescript@5.5.4)(vue@3.4.37(typescript@5.5.4))':
+  '@vue/apollo-composable@4.1.0(@apollo/client@3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(graphql@16.9.0)(typescript@5.5.4)(vue@3.4.37(typescript@5.5.4))':
     dependencies:
-      '@apollo/client': 3.11.4(graphql@16.9.0)
+      '@apollo/client': 3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)
       graphql: 16.9.0
       throttle-debounce: 5.0.2
       ts-essentials: 9.4.2(typescript@5.5.4)
@@ -2416,9 +2427,9 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@vue/apollo-option@4.0.0(@apollo/client@3.11.4(graphql@16.9.0))(vue@3.4.37(typescript@5.5.4))':
+  '@vue/apollo-option@4.0.0(@apollo/client@3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(vue@3.4.37(typescript@5.5.4))':
     dependencies:
-      '@apollo/client': 3.11.4(graphql@16.9.0)
+      '@apollo/client': 3.11.4(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)
       throttle-debounce: 5.0.2
       vue: 3.4.37(typescript@5.5.4)
 
@@ -2996,6 +3007,11 @@ snapshots:
     dependencies:
       graphql: 16.9.0
       tslib: 2.6.3
+
+  graphql-ws@5.16.0(graphql@16.9.0):
+    dependencies:
+      graphql: 16.9.0
+    optional: true
 
   graphql@16.9.0: {}
 

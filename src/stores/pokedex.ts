@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, Ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 
@@ -10,15 +10,14 @@ import pokemon_by_national_id from '../queries/pokemon_by_national_id.gql'
 
 export const usePokedexPageStore = defineStore('pokedex-page', () => {
   let loaded = false
-  const pokedex: Ref<Pokemon[]> = ref([])
-  const speciesData: Ref<PokemonSpeciesResponse | undefined> = ref()
+  const pokedex = ref()
+  const selected = ref()
 
   const loadPokedex = (): Pokemon[] => {
+    const { pokemon }: { pokemon: Pokemon[] } = pokedexData
     if(!loaded) {
-      console.log("LOADING pokedexData", pokedexData.pokemon.length)
-      console.log("^ this should only happen once!")
-
-      const { pokemon }: { pokemon: Pokemon[] } = pokedexData
+      console.warn("LOADING pokedexData", pokedexData.pokemon.length)
+      console.warn("^ this should only happen once!")
       
       pokedex.value = pokemon
 
@@ -27,26 +26,38 @@ export const usePokedexPageStore = defineStore('pokedex-page', () => {
     return pokedex.value
   }
 
-  const loadSpeciesData = (dexNum: number | string) => {
+  const loadFullPokemon = async (dexNum: number) => {
     const query = gql`${pokemon_by_national_id}`
     const { result } = useQuery(query, { pokemon_species_id: dexNum })
 
     watch(
-      () => result,
-      (result: Ref<PokemonSpeciesResponse>) => {
-        speciesData.value = result.value as PokemonSpeciesResponse
+      () => result.value,
+      (result: PokemonSpeciesResponse) => {
+        const mainPokemon = result.pokemon[0]
+        const species = result.species[0]
+
+        selected.value = {
+          ...mainPokemon,
+          species,
+          altForms: result.pokemon.slice(1) || [],
+        }
+        console.log(selected)
+        
+        return selected
       }
     )
   }
 
-  const loadPokemon = (dexNum: number | string): Pokemon => {
-    loadSpeciesData(dexNum)
+  const loadPokemon = (dexNum: number): Pokemon => {
+    loadFullPokemon(dexNum)
     return getPrevAndNext(loadPokedex(), dexNum)
   }
 
   return {
     pokedex,
+    selected,
     loadPokedex,
-    loadPokemon
+    loadPokemon,
+    loadFullPokemon
   }
 })

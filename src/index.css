@@ -21,4 +21,7 @@ h6 {
   .pokeball-shaped {
     @apply h-40 w-40 rounded-full;
   }
+  .text-shadowed {
+    @apply [text-shadow:_0_1px_0_rgb(0_55_0_/_80%)]
+  }
 }

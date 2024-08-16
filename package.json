@@ -16,6 +16,7 @@
     "@vue/apollo-components": "^4.0.0",
     "@vue/apollo-composable": "^4.1.0",
     "@vue/apollo-option": "^4.0.0",
+    "graphql": "^16.9.0",
     "graphql-tag": "^2.12.6",
     "pinia": "^2.2.1",
     "vite-plugin-graphql-loader": "^4.0.4",

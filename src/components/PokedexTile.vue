@@ -25,7 +25,7 @@
   }
 
   const selectPokemon = (pokemon: Pokemon) => {
-    console.log('selectPokemon', pokemon)
+    console.warn('selectPokemon', pokemon)
   }
 </script>
 

@@ -1,13 +1,15 @@
 <script setup lang="ts">
-  import { ref, Ref, watch } from 'vue'
+  import { ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
   import PokedexMiniNav from '../PokedexMiniNav.vue'
   import { usePokedexPageStore } from '../../stores/pokedex'
-  import { Pokemon } from '../../types/index'
-  import { getBigBulbaImg } from '../../helpers'
+  import { Pokemon, PokemonFull, PokemonType } from '../../types/index'
+  import { getBigBulbaImg, cleanUp, gameTypeIcon } from '../../helpers'
+  import { pokeTypes } from '../../data/poke-data' 
 
-  let pokemon: Ref<Pokemon | undefined> = ref()
+  let pokemon = ref()
+  let selected = ref()
   let imageUrl: string
 
   const route = useRoute()
@@ -15,9 +17,12 @@
 
   const pokedexStore = usePokedexPageStore()
 
-  const loadPokemon = (dexNum: string): Pokemon | void => {
+  const loadPokemon = async (dexNum: string): Promise<Pokemon | void> => {
     if (!dexNum || pokemon.value && pokemon.value.id === +dexNum) return
-    const loadedPokemon = pokedexStore.loadPokemon(dexNum)
+    const loadedPokemon = pokedexStore.loadPokemon(+dexNum)
+
+    await pokedexStore.loadFullPokemon(+dexNum)
+    
     if (loadedPokemon) {
       imageUrl = getBigBulbaImg(loadedPokemon)
       pokemon.value = loadedPokemon
@@ -30,13 +35,27 @@
     loadPokemon(newId)
   }
 
+  const getPokeType = (pokeTypeName: string): PokemonType => {
+    const selectedType = pokeTypes.find(pokeType => pokeType.name === pokeTypeName)
+    return selectedType as PokemonType
+  }
+
   if (route.params.id) {
     loadPokemon(route.params.id as string)
   }
 
+  const cleanUpFlavorText = cleanUp
+
+  const getPokeTypeIcon = gameTypeIcon
+
   watch(
     () => route.params.id,
     async newId => updatePokemonOnRoute(newId as string)
+  )
+  
+  watch(
+    () => pokedexStore.selected as PokemonFull,
+    (selectedPokemon: PokemonFull) => selected.value = selectedPokemon
   )
 </script>
 
@@ -47,17 +66,40 @@
         <PokedexMiniNav v-if="pokemon.previous" :pokemon="pokemon.previous"
         side="left" @updatePokemon="updatePokemonOnRoute(`${pokemon.previous.id}`)" />
       </div>
-      <div class="pokemon-view flex justify-center">
+      <div class="pokemon-view w-full h-92 flex justify-center">
         <img :src="imageUrl" :alt="pokemon.name">
       </div>
       <h1 class="text-4xl m-2 capitalize text-white font-bold">
         #{{ pokemon.id }} {{ pokemon && pokemon.name && pokemon.name.replace("-", " ") }}
       </h1>
+      <div class="text-2xl" v-if="selected && selected.species">
+        {{ selected.species.genus }}
+      </div>
     </div>
     <div class="dex-right">
       <div class="top-nav">
         <PokedexMiniNav v-if="pokemon.next" :pokemon="pokemon.next"
         side="right" @updatePokemon="updatePokemonOnRoute(`${pokemon.next.id}`)" />
+      </div>
+      <div class="pokemon-view w-full h-92 text-pink-600 font-bold" v-if="selected">
+        <div class="my-1 pb-2 text-shadowed" v-for="flavor of selected.specy.flavor.slice(0, 4)"
+          :key="`flavor-text-${flavor.game.name}`">
+          {{ cleanUpFlavorText(flavor.flavor_text) }} - 
+          <span class="capitalize">Pokemon {{ flavor.game.name }}</span>
+        </div>
+      </div>
+      <div class="stats flex justify-between w-full font-bold" v-if="selected">
+        <div class="m-2 px-2">Height: {{ selected.height }}</div>
+        <div class="m-2 px-2">Weight: {{ selected.weight }}</div>
+      </div>
+      <div class="types flex justify-between w-full font-bold" v-if="selected">
+        <div class="w-32 m-2 py-2 px-4 gap-2 capitalize text-xl text-shadowed flex justify-center content-center" :key="`type-${pokeType}`"
+          v-for="pokeType of selected.types"
+          :style="{backgroundColor: getPokeType(pokeType.type.name).color}"
+          >
+          <img class="p-0.5 w-10" :src="getPokeTypeIcon(pokeType.type.name)" :alt="pokeType.type.name">
+          <div class="flex flex-col justify-center">{{ pokeType.type.name }}</div>
+        </div>
       </div>
     </div>
   </div>

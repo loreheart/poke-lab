@@ -69,7 +69,7 @@ describe('PokemonPage component', async () => {
   // Expected: "Bulbasaur"
   // Received: "<!--v-if-->"
   // it('renders pokemon name', async () => {
-  //   console.log(wrapper.html())
+  //   console.warn(wrapper.html())
   //   expect(wrapper.html()).toContain('Bulbasaur')
   // })
 

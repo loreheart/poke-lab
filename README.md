@@ -2,6 +2,7 @@
 
 ## Current Features
 Pokedex page
+Pokemon detail page
 
 ## Features in Development
 Pokedex page
