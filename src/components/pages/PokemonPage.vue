@@ -67,7 +67,7 @@
 </script>
 
 <template>
-  <div class="pokedex-detail flex my-12 justify-center" v-if="pokemon">
+  <div class="pokedex-detail flex my-4 justify-center" v-if="pokemon">
     <div class="dex-left">
       <div class="top-nav">
         <PokedexMiniNav :pokemon="prevPokemon"
@@ -88,8 +88,8 @@
         <PokedexMiniNav v-if="nextPokemon" :pokemon="nextPokemon"
         side="right" @updatePokemon="updatePokemonOnRoute(`${nextPokemon.id}`)" />
       </div>
-      <div class="pokemon-view w-full h-92 text-pink-600 font-bold" v-if="selected">
-        <div class="my-1 pb-2 text-shadowed" v-for="flavor of selected.specy.flavor.slice(0, 4)"
+      <div class="pokemon-view w-full h-92 text-red-800 font-bold" v-if="selected">
+        <div class="my-1 pb-2" v-for="flavor of selected.specy.flavor.slice(0, 4)"
           :key="`flavor-text-${flavor.game.name}`">
           {{ cleanUpFlavorText(flavor.flavor_text) }} - 
           <span class="capitalize">Pokemon {{ flavor.game.name }}</span>
@@ -100,7 +100,7 @@
         <div class="m-2 px-2">Weight: {{ selected.weight }}</div>
       </div>
       <div class="types flex justify-between w-full font-bold" v-if="selected">
-        <div class="w-32 m-2 py-2 px-4 gap-2 capitalize text-xl text-shadowed flex justify-center content-center" :key="`type-${pokeType}`"
+        <div class="w-32 m-2 py-2 px-4 gap-2 capitalize text-xl flex justify-center content-center" :key="`type-${pokeType}`"
           v-for="pokeType of selected.types"
           :style="{backgroundColor: getPokeType(pokeType.type.name).color}"
           >
@@ -124,8 +124,9 @@
       background-color: #880000;
     }
     .pokemon-view {
-      padding: 0.5rem;
+      padding: 0.5rem 1rem;
       background: linear-gradient(#b9e0de 25%, #73c0bc);
+      min-height: 22rem;
     }
 
     .top-nav {

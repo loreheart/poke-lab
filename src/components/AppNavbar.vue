@@ -12,7 +12,7 @@
 </script>
 
 <template>
-  <div id="navbar" class="navbar flex gap-4 px-8 py-2 mb-2 border-b border-white justify-center">
+  <div id="navbar" class="navbar flex gap-4 px-8 py-2 mb-2 border-b border-red-400 justify-center">
     <div class="text-lg">
       PokeLab
     </div>
