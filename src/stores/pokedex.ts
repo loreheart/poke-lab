@@ -1,56 +1,79 @@
 import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
+import { ref, watch, Ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 
-import { Pokemon, PokemonSpeciesResponse } from '../types/index'
+import { NationalDex, Pokemon, PokemonFull, PokemonSpeciesResponse } from '../types/index'
 import pokedexData from '../data/pokedex-with-types.json'
-import { getPrevAndNext } from '../helpers'
+import { getItemWithPrevAndNext } from '../helpers'
 import pokemon_by_national_id from '../queries/pokemon_by_national_id.gql'
+import { useLocalStorageStore } from './localStorage'
 
 export const usePokedexPageStore = defineStore('pokedex-page', () => {
-  let loaded = false
+  let pokedexLoaded = false
+
+  const localStorageStore = useLocalStorageStore()
+  const hasLocalStorage = localStorageStore.ready
+
   const pokedex = ref()
+  const nationalDex: Ref<NationalDex> = ref({})
   const selected = ref()
+  
+  // For persisting full pokedex data, nationalIds as index
+  const addToNationalDex = (newPokemon: PokemonFull): PokemonFull => {
+    nationalDex.value[newPokemon.id] = newPokemon
+    if (hasLocalStorage) {
+      console.log('saving national dex to local storage')
+      localStorageStore.setItem('national-dex', nationalDex.value)
+    }
+    return newPokemon
+  }
+
+  const hasNationalDexData = (dexNum: number): boolean => {
+    return !!nationalDex.value[dexNum]
+  }
 
   const loadPokedex = (): Pokemon[] => {
     const { pokemon }: { pokemon: Pokemon[] } = pokedexData
-    if(!loaded) {
-      console.warn("LOADING pokedexData", pokedexData.pokemon.length)
-      console.warn("^ this should only happen once!")
-      
+    if(!pokedexLoaded) {
       pokedex.value = pokemon
-
-      loaded = true
+      pokedexLoaded = true
     }
     return pokedex.value
   }
 
+  const splitForms = ({ pokemon, species }: PokemonSpeciesResponse): PokemonFull => {
+    const mainPokemon = pokemon[0]
+
+    return {
+      ...mainPokemon,
+      species: species[0],
+      altForms: pokemon.slice(1) || [],
+    }
+  }
+
   const loadFullPokemon = async (dexNum: number) => {
     const query = gql`${pokemon_by_national_id}`
-    const { result } = useQuery(query, { pokemon_species_id: dexNum })
+    const { result } = await useQuery(query, { pokemon_species_id: dexNum })
 
     watch(
       () => result.value,
-      (result: PokemonSpeciesResponse) => {
-        const mainPokemon = result.pokemon[0]
-        const species = result.species[0]
-
-        selected.value = {
-          ...mainPokemon,
-          species,
-          altForms: result.pokemon.slice(1) || [],
-        }
-        console.log(selected)
-        
-        return selected
+      ({ pokemon, species }: PokemonSpeciesResponse) => {
+        const newPokemon: PokemonFull = splitForms({ pokemon, species })
+        addToNationalDex(newPokemon)
+        selected.value = newPokemon
+        console.log(newPokemon)
+        return newPokemon
       }
     )
   }
 
-  const loadPokemon = (dexNum: number): Pokemon => {
-    loadFullPokemon(dexNum)
-    return getPrevAndNext(loadPokedex(), dexNum)
+  const loadPokemon = (dexNum: number): Pokemon | undefined => {
+    if (!hasNationalDexData(dexNum)) {
+      loadFullPokemon(dexNum)
+    }
+    const pokedex = loadPokedex()
+    return pokedex.find(poke => poke.id === dexNum)
   }
 
   return {

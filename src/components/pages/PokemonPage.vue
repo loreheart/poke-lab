@@ -5,10 +5,13 @@
   import PokedexMiniNav from '../PokedexMiniNav.vue'
   import { usePokedexPageStore } from '../../stores/pokedex'
   import { Pokemon, PokemonFull, PokemonType } from '../../types/index'
-  import { getBigBulbaImg, cleanUp, gameTypeIcon } from '../../helpers'
+  import { getBigBulbaImg, cleanUp, gameTypeIcon, getPrevItem, getNextItem } from '../../helpers'
   import { pokeTypes } from '../../data/poke-data' 
 
   let pokemon = ref()
+  let prevPokemon = ref()
+  let nextPokemon = ref()
+  let pokemonFull = ref()
   let selected = ref()
   let imageUrl: string
 
@@ -17,15 +20,20 @@
 
   const pokedexStore = usePokedexPageStore()
 
+  const loadPrevAndNext = (dexNum: string): void => {
+    const pokedex = pokedexStore.pokedex.value
+    prevPokemon.value = getPrevItem(pokedex, dexNum)
+    nextPokemon.value = getNextItem(pokedex, dexNum)
+  }
+
   const loadPokemon = async (dexNum: string): Promise<Pokemon | void> => {
     if (!dexNum || pokemon.value && pokemon.value.id === +dexNum) return
     const loadedPokemon = pokedexStore.loadPokemon(+dexNum)
-
-    await pokedexStore.loadFullPokemon(+dexNum)
-    
+    pokemonFull.value = await pokedexStore.loadFullPokemon(+dexNum)
     if (loadedPokemon) {
       imageUrl = getBigBulbaImg(loadedPokemon)
       pokemon.value = loadedPokemon
+      loadPrevAndNext(dexNum)
       return loadedPokemon
     }
   }
@@ -63,8 +71,9 @@
   <div class="pokedex-detail flex my-12 justify-center" v-if="pokemon">
     <div class="dex-left">
       <div class="top-nav">
-        <PokedexMiniNav v-if="pokemon.previous" :pokemon="pokemon.previous"
-        side="left" @updatePokemon="updatePokemonOnRoute(`${pokemon.previous.id}`)" />
+        {{  prevPokemon }}
+        <PokedexMiniNav v-if="prevPokemon" :pokemon="prevPokemon"
+        side="left" @updatePokemon="updatePokemonOnRoute(`${prevPokemon.id}`)" />
       </div>
       <div class="pokemon-view w-full h-92 flex justify-center">
         <img :src="imageUrl" :alt="pokemon.name">
@@ -78,8 +87,8 @@
     </div>
     <div class="dex-right">
       <div class="top-nav">
-        <PokedexMiniNav v-if="pokemon.next" :pokemon="pokemon.next"
-        side="right" @updatePokemon="updatePokemonOnRoute(`${pokemon.next.id}`)" />
+        <PokedexMiniNav v-if="nextPokemon" :pokemon="nextPokemon"
+        side="right" @updatePokemon="updatePokemonOnRoute(`${nextPokemon.id}`)" />
       </div>
       <div class="pokemon-view w-full h-92 text-pink-600 font-bold" v-if="selected">
         <div class="my-1 pb-2 text-shadowed" v-for="flavor of selected.specy.flavor.slice(0, 4)"

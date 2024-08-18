@@ -3,33 +3,32 @@ export const capitalize = (word: string) => {
 }
 
 export const makeUrlFriendly = (name: string) => {
-  return name.split('-').map(namePart => {
+  console.log(name)
+  return `${name}`.split('-').map(namePart => {
     return capitalize(namePart)
   }).join('%20')
 }
 
-export const getPrevAndNext = <T,>(
+export const getPrevItem = <T,>(
   items: T[],
   index: number | string,
   last: number = 1025
-): T => {
-  let previous = null, next = null
+) => {
   const indexInt = parseInt(`${index}`)
-
-  const item = items[+indexInt - 1]
   
   if (indexInt > 1 && indexInt <= last) {
-    const prevId = +indexInt - 1
-    previous = items[prevId - 1]
+    return items[+indexInt - 1 - 1]
   }
+}
 
+export const getNextItem = <T,>(
+  items: T[],
+  index: number | string,
+  last: number = 1025
+) => {
+  const indexInt = parseInt(`${index}`)
+  
   if (indexInt >= 1 && indexInt < last) {
-    const nextId = +indexInt + 1
-    next = items[nextId - 1]
-  }
-  return {
-    ...item,
-    previous,
-    next,
+    return items[+indexInt - 1 - 1]
   }
 }

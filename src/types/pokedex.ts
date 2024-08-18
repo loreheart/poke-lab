@@ -74,11 +74,14 @@ export interface PokemonFull extends Pokemon {
   altForms?: PokemonFull[]
 }
 
+export interface NationalDex {
+  [id: string]: PokemonFull
+}
+
 export interface PokemonSpecies {
   name: string
   genus: string
 }
-
 
 export interface PokemonSpeciesResponse {
   species: PokemonSpecies[]
