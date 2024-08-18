@@ -5,7 +5,6 @@ import gql from 'graphql-tag'
 
 import { NationalDex, Pokemon, PokemonFull, PokemonSpeciesResponse } from '../types/index'
 import pokedexData from '../data/pokedex-with-types.json'
-import { getItemWithPrevAndNext } from '../helpers'
 import pokemon_by_national_id from '../queries/pokemon_by_national_id.gql'
 import { useLocalStorageStore } from './localStorage'
 
@@ -53,6 +52,10 @@ export const usePokedexPageStore = defineStore('pokedex-page', () => {
   }
 
   const loadFullPokemon = async (dexNum: number) => {
+    if (hasNationalDexData(dexNum)) {
+      selected.value = nationalDex.value[dexNum]
+      return
+    }
     const query = gql`${pokemon_by_national_id}`
     const { result } = await useQuery(query, { pokemon_species_id: dexNum })
 
@@ -62,16 +65,13 @@ export const usePokedexPageStore = defineStore('pokedex-page', () => {
         const newPokemon: PokemonFull = splitForms({ pokemon, species })
         addToNationalDex(newPokemon)
         selected.value = newPokemon
-        console.log(newPokemon)
         return newPokemon
       }
     )
   }
 
   const loadPokemon = (dexNum: number): Pokemon | undefined => {
-    if (!hasNationalDexData(dexNum)) {
-      loadFullPokemon(dexNum)
-    }
+    loadFullPokemon(dexNum)
     const pokedex = loadPokedex()
     return pokedex.find(poke => poke.id === dexNum)
   }

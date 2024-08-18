@@ -29,6 +29,6 @@ export const getNextItem = <T,>(
   const indexInt = parseInt(`${index}`)
   
   if (indexInt >= 1 && indexInt < last) {
-    return items[+indexInt - 1 - 1]
+    return items[+indexInt - 1 + 1]
   }
 }

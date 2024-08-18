@@ -4,14 +4,13 @@
 
   import PokedexMiniNav from '../PokedexMiniNav.vue'
   import { usePokedexPageStore } from '../../stores/pokedex'
-  import { Pokemon, PokemonFull, PokemonType } from '../../types/index'
+  import { PokemonFull, PokemonType } from '../../types/index'
   import { getBigBulbaImg, cleanUp, gameTypeIcon, getPrevItem, getNextItem } from '../../helpers'
   import { pokeTypes } from '../../data/poke-data' 
 
   let pokemon = ref()
   let prevPokemon = ref()
   let nextPokemon = ref()
-  let pokemonFull = ref()
   let selected = ref()
   let imageUrl: string
 
@@ -21,15 +20,15 @@
   const pokedexStore = usePokedexPageStore()
 
   const loadPrevAndNext = (dexNum: string): void => {
-    const pokedex = pokedexStore.pokedex.value
+    const pokedex = pokedexStore.loadPokedex()
     prevPokemon.value = getPrevItem(pokedex, dexNum)
     nextPokemon.value = getNextItem(pokedex, dexNum)
   }
 
-  const loadPokemon = async (dexNum: string): Promise<Pokemon | void> => {
+  const loadPokemon = (dexNum: string) => {
     if (!dexNum || pokemon.value && pokemon.value.id === +dexNum) return
     const loadedPokemon = pokedexStore.loadPokemon(+dexNum)
-    pokemonFull.value = await pokedexStore.loadFullPokemon(+dexNum)
+
     if (loadedPokemon) {
       imageUrl = getBigBulbaImg(loadedPokemon)
       pokemon.value = loadedPokemon
@@ -71,8 +70,7 @@
   <div class="pokedex-detail flex my-12 justify-center" v-if="pokemon">
     <div class="dex-left">
       <div class="top-nav">
-        {{  prevPokemon }}
-        <PokedexMiniNav v-if="prevPokemon" :pokemon="prevPokemon"
+        <PokedexMiniNav :pokemon="prevPokemon"
         side="left" @updatePokemon="updatePokemonOnRoute(`${prevPokemon.id}`)" />
       </div>
       <div class="pokemon-view w-full h-92 flex justify-center">
