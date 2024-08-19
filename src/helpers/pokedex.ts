@@ -1,6 +1,7 @@
-import { Pokemon, PokemonFull, PokemonSpeciesResponse } from "../types"
+import { Pokemon, PokemonFull, PokemonSpeciesResponse, PokemonGeneration } from "../types"
+
 import { bifrostUrl } from '../config/assets'
-import { pokeTypes } from '../data/poke-data'
+import { generations, pokeTypes } from '../data/poke-data'
 import { makeUrlFriendly } from './general'
 
 export const getBigBulbaImg = (pokemon: Pokemon) => {
@@ -33,4 +34,10 @@ export const splitForms = ({ pokemon, species }: PokemonSpeciesResponse): Pokemo
     species: species[0],
     altForms: pokemon.slice(1) || [],
   }
+}
+
+export const pokemonIsFromRegion = (pokemon: Pokemon, regionName: string) => {
+  const activeGen = generations.find(gen => gen.region === regionName) as PokemonGeneration 
+
+  return pokemon.id >= activeGen.first && pokemon.id <= activeGen.last
 }

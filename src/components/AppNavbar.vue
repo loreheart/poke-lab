@@ -19,7 +19,7 @@
     <img class="logo h-8 w-8" src="/pokeball-icon.png" alt="Pokeball logo white" />
     <nav class="nav-items flex gap-4" v-if="navItems">
       <div class="nav-item justify-center text-lg" v-for="navItem in navItems" :key="`nav-link-${navItem.text}`">
-        <RouterLink :to="'/' + navItem.link" active-class="active" v-if="navItem">
+        <RouterLink :to="'/' + navItem.link" active-class="text-poke-yellow-2" v-if="navItem">
           {{ navItem.text }}
         </RouterLink>
       </div>

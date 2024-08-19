@@ -57,7 +57,7 @@
         <PokedexMiniNav :pokemon="prevPokemon" side="left" @updatePokemon="updatePokemonOnRoute(`${prevPokemon.id}`)" />
       </div>
       <div class="pokemon-view w-full h-92 flex justify-center">
-        <img :src="getImageUrl(selectedPokemon)" :alt="selectedPokemon.name">
+        <img class="" :src="getImageUrl(selectedPokemon)" :alt="selectedPokemon.name">
       </div>
       <div class="poke-info">
         <h1 class="text-4xl m-2 capitalize text-white font-bold">
@@ -134,7 +134,10 @@
     .pokemon-view {
       padding: 0.5rem 1rem;
       background: linear-gradient(#b9e0de 25%, #73c0bc);
-      min-height: 22rem;
+      min-height: 20rem;
+      img {
+        height: max-content;
+      }
     }
 
     .top-nav {
