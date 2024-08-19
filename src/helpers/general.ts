@@ -1,6 +1,4 @@
-export const capitalize = (word: string) => {
-  return word.charAt(0).toUpperCase() + word.slice(1)
-}
+import { capitalize } from 'vue'
 
 export const makeUrlFriendly = (name: string) => {
   return `${name}`.split('-').map(namePart => {
