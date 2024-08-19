@@ -42,7 +42,7 @@
         #{{ pokemon.id }} {{ pokemon.name.replace("-", " ") }}
       </div>
     </div>
-    <div class="type-symbols flex justify-center">
+    <div class="type-symbols">
       <TypeSymbol
         class="icon"
         v-for="pokeType of pokemon.types"
@@ -98,11 +98,16 @@
         margin: 0;
       }
     }
-    .type-symbols {
+    .type-symbols .icon {
       position: absolute;
-      bottom: -1.5rem;
-      left: 0;
-      right: 0;
+    }
+    .type-symbols .icon:first-child {
+      bottom: 1rem;
+      right: -1rem;
+    }
+    .type-symbols .icon:not(:first-child) {
+      bottom: -1rem;
+      right: 1rem;
     }
   }
 
