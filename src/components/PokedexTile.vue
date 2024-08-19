@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import type { PropType } from 'vue'
 
+  import TypeSymbol from '../components/TypeSymbol.vue'
   import { Pokemon } from '../types'
 
   defineProps({
@@ -41,6 +42,17 @@
         #{{ pokemon.id }} {{ pokemon.name.replace("-", " ") }}
       </div>
     </div>
+    <div class="type-symbols flex justify-center">
+      <TypeSymbol
+        class="icon"
+        v-for="pokeType of pokemon.types"
+        :key="`type-${pokeType}`"
+        :pokeTypeName="pokeType.type.name"
+        shape="circular"
+        size="mini"
+        :showName="false"
+      />
+    </div>
   </div>
 
 </template>
@@ -52,7 +64,7 @@
     position: relative;
     background: linear-gradient(#b9e0de 25%, #73c0bc);
     border: 2px solid #111;
-    margin: 0.75rem;
+    margin: 1rem 1rem 2rem;
     box-shadow: 8px 4px 8px #111;
     cursor: pointer;
     &:hover {
@@ -85,6 +97,12 @@
         right: 0;
         margin: 0;
       }
+    }
+    .type-symbols {
+      position: absolute;
+      bottom: -1.5rem;
+      left: 0;
+      right: 0;
     }
   }
 

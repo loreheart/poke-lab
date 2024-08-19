@@ -13,7 +13,7 @@ export const getBigBulbaImg = (pokemon: Pokemon) => {
 }
 
 export const gameTypeIcon = (typename: string) => {
-  return `${bifrostUrl}/projects/pokedex/icons/gen-9-types-white/${typename.toLowerCase()}.png`
+  return `${bifrostUrl}/projects/pokedex/icons/gen-9-types-white/${typename && typename.toLowerCase()}.png`
 }
 
 export const getPokeType = (pokeTypeName: string) => {

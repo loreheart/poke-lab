@@ -24,7 +24,7 @@ const appBody = mount(AppBody, {
 
 describe('AppBody component', async () => {
   it('renders the breadcrumb', async () => {
-    expect(appBody.text()).toContain('Route')
+    expect(appBody.text()).toContain('© 2024 LoreHeart')
   })
 
   it('renders the home route', async () => {

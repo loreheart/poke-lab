@@ -4,9 +4,10 @@
   import { storeToRefs } from 'pinia'
 
   import PokedexMiniNav from '../PokedexMiniNav.vue'
+  import TypeSymbol from '../TypeSymbol.vue'
   import { usePokedexPageStore } from '../../stores'
   import { PokemonFull } from '../../types'
-  import { getBigBulbaImg, cleanUp, gameTypeIcon, getPrevItem, getNextItem, getPokeType as handleGetPokeType } from '../../helpers'
+  import { getBigBulbaImg, cleanUp, getPrevItem, getNextItem } from '../../helpers'
 
   const route = useRoute()
   const router = useRouter()
@@ -14,8 +15,6 @@
   const pokedexStore = usePokedexPageStore()
 
   const cleanUpFlavorText = cleanUp
-  const getPokeTypeIcon = gameTypeIcon
-  const getPokeType = handleGetPokeType
   const getImageUrl = getBigBulbaImg
 
   let selectedPokemon = ref()
@@ -93,13 +92,15 @@
         <div class="m-2 px-2">Height: {{ selectedPokemon.height }}</div>
         <div class="m-2 px-2">Weight: {{ selectedPokemon.weight }}</div>
       </div>
-      <div class="types flex justify-between w-full font-bold" v-if="selectedPokemon">
-        <div class="w-32 m-2 py-2 px-4 gap-2 capitalize text-xl flex justify-center content-center"
-          :key="`type-${pokeType}`" v-for="pokeType of selectedPokemon.types"
-          :style="{ backgroundColor: getPokeType(pokeType.type.name).color }">
-          <img class="p-0.5 w-10" :src="getPokeTypeIcon(pokeType.type.name)" :alt="pokeType.type.name">
-          <div class="flex flex-col justify-center">{{ pokeType.type.name }}</div>
-        </div>
+      <div class="types flex justify-between w-full font-bold" v-if="selectedPokemon && selectedPokemon.types">
+        <TypeSymbol
+          v-for="pokeType of selectedPokemon.types"
+          :key="`type-${pokeType}`"
+          :pokeTypeName="pokeType.type.name"
+          shape="squared"
+          size="medium"
+          :showName="true"
+        />
       </div>
     </div>
     <div class="dex-right off" v-else>
@@ -128,7 +129,7 @@
       width: clamp(12rem, 50vw, 24rem);
       border: 0.5rem solid #af0b0b;
       background-color: #880000;
-      min-height: 36rem;
+      min-height: 34rem;
     }
 
     .pokemon-view {
