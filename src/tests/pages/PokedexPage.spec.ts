@@ -4,7 +4,7 @@ import { createTestingPinia } from '@pinia/testing'
 import { mount } from '@vue/test-utils'
 
 import PokedexPage from '../../components/pages/PokedexPage.vue'
-import { usePokedexPageStore } from '../../stores/pokedex'
+import { usePokedexPageStore } from '../../stores/pokedex-store'
 import { Pokemon } from '../../types/index'
 
 

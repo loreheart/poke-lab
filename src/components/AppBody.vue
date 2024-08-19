@@ -5,6 +5,9 @@
   import { useRoute } from 'vue-router'
 
   import { NavItem } from '../types'
+  import { usePokedexPageStore } from '../stores'
+
+  const pokedexPageStore = usePokedexPageStore()
 
   const navItems: NavItem[] = [
     {
@@ -19,12 +22,14 @@
 
   const route = useRoute()
 
-  const routeText: Ref<string> = ref('')
+  const routeText: Ref<string> = ref(route && route.path || '')
+  pokedexPageStore.loadLocalNationalDex()
   
   watch(
     () => route && route.path,
     async newRoutePath => {
       routeText.value = newRoutePath
+      pokedexPageStore.loadLocalNationalDex()
     }
   )
 
@@ -36,7 +41,7 @@
     <div class="route-bread text-xl text-center color-white">
       Route: {{ routeText }}
     </div>
-    <RouterView />
+    <RouterView :key="route.fullPath" />
   </main>
   <AppFooter />
 </template>

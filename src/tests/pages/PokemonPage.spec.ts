@@ -6,7 +6,7 @@ import { mount } from '@vue/test-utils'
 
 import PokemonPage from './../../components/pages/PokemonPage.vue'
 import HomePage from './../../components/pages/HomePage.vue'
-import { usePokedexPageStore } from '../../stores/pokedex'
+import { usePokedexPageStore } from '../../stores/pokedex-store'
 import { testPokemon } from '../mocks/pokemon'
 import { Pokemon } from '@/src/types'
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import type { PropType } from 'vue'
-  import { Pokemon } from '../types/index'
+
+  import { Pokemon } from '../types'
 
   defineProps({
     pokemon: {
@@ -24,14 +25,11 @@
     return `${spriteUrl}${name}.png`
   }
 
-  const selectPokemon = (pokemon: Pokemon) => {
-    console.warn('selectPokemon', pokemon)
-  }
 </script>
 
 <template>
   <div class="pokemon-tile pokeball-shaped"
-        @click="selectPokemon(pokemon)">
+        @click="$emit('selectPokemon', pokemon)">
     <div class="sprite scale-110">
       <img
         :src="spriteByPokemon(pokemon.name)"
@@ -49,6 +47,8 @@
 
 <style scoped>
   .pokemon-tile {
+    text-align: center;
+    font-weight: bold;
     position: relative;
     background: linear-gradient(#b9e0de 25%, #73c0bc);
     border: 2px solid #111;

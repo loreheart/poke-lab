@@ -3,10 +3,11 @@ import { ref, watch, Ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 
-import { NationalDex, Pokemon, PokemonFull, PokemonSpeciesResponse } from '../types/index'
+import { NationalDex, Pokemon, PokemonFull, PokemonSpeciesResponse } from '../types'
 import pokedexData from '../data/pokedex-with-types.json'
 import pokemon_by_national_id from '../queries/pokemon_by_national_id.gql'
-import { useLocalStorageStore } from './localStorage'
+import { useLocalStorageStore } from './local-storage-store'
+import { splitForms } from '../helpers'
 
 export const usePokedexPageStore = defineStore('pokedex-page', () => {
   let pokedexLoaded = false
@@ -20,42 +21,42 @@ export const usePokedexPageStore = defineStore('pokedex-page', () => {
   
   // For persisting full pokedex data, nationalIds as index
   const addToNationalDex = (newPokemon: PokemonFull): PokemonFull => {
+    if (!nationalDex.value) {
+      nationalDex.value = {}
+    }
     nationalDex.value[newPokemon.id] = newPokemon
     if (hasLocalStorage) {
-      console.log('saving national dex to local storage')
       localStorageStore.setItem('national-dex', nationalDex.value)
     }
     return newPokemon
   }
 
+  const loadLocalNationalDex = () => {
+    nationalDex.value = localStorageStore.loadItem('national-dex')
+  }
+
   const hasNationalDexData = (dexNum: number): boolean => {
-    return !!nationalDex.value[dexNum]
+    return nationalDex.value && !!nationalDex.value[dexNum]
   }
 
   const loadPokedex = (): Pokemon[] => {
+    console.log('check loadPokedex')
     const { pokemon }: { pokemon: Pokemon[] } = pokedexData
     if(!pokedexLoaded) {
       pokedex.value = pokemon
       pokedexLoaded = true
+      console.log('ACTUAL loadPokedex')
     }
     return pokedex.value
   }
 
-  const splitForms = ({ pokemon, species }: PokemonSpeciesResponse): PokemonFull => {
-    const mainPokemon = pokemon[0]
-
-    return {
-      ...mainPokemon,
-      species: species[0],
-      altForms: pokemon.slice(1) || [],
-    }
-  }
 
   const loadFullPokemon = async (dexNum: number) => {
     if (hasNationalDexData(dexNum)) {
-      selected.value = nationalDex.value[dexNum]
-      return
+      console.log('loadFullPokemon CACHED', dexNum)
+      return loadCachedFullPokemon(dexNum)
     }
+    console.log('loadFullPokemon NEW', dexNum)
     const query = gql`${pokemon_by_national_id}`
     const { result } = await useQuery(query, { pokemon_species_id: dexNum })
 
@@ -63,6 +64,7 @@ export const usePokedexPageStore = defineStore('pokedex-page', () => {
       () => result.value,
       ({ pokemon, species }: PokemonSpeciesResponse) => {
         const newPokemon: PokemonFull = splitForms({ pokemon, species })
+
         addToNationalDex(newPokemon)
         selected.value = newPokemon
         return newPokemon
@@ -70,8 +72,15 @@ export const usePokedexPageStore = defineStore('pokedex-page', () => {
     )
   }
 
+  const loadCachedFullPokemon = (dexNum: number): PokemonFull => {
+    console.log('loadCachedFullPokemon', dexNum, nationalDex.value[+dexNum])
+    const cachedPokemon = nationalDex.value[+dexNum]
+    selected.value = cachedPokemon
+    return cachedPokemon
+  }
+
   const loadPokemon = (dexNum: number): Pokemon | undefined => {
-    loadFullPokemon(dexNum)
+    console.log('loadPokemon', dexNum)
     const pokedex = loadPokedex()
     return pokedex.find(poke => poke.id === dexNum)
   }
@@ -79,8 +88,10 @@ export const usePokedexPageStore = defineStore('pokedex-page', () => {
   return {
     pokedex,
     selected,
+    nationalDex,
     loadPokedex,
     loadPokemon,
-    loadFullPokemon
+    loadFullPokemon,
+    loadLocalNationalDex,
   }
 })

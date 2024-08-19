@@ -14,7 +14,8 @@ export const useLocalStorageStore = defineStore('local-storage', () => {
 
   const setItem = <T,>(key: string, item: T) => {
     if(ready.value) {
-      localStorage.setItem(key, JSON.stringify(item))
+      const newItemString = JSON.stringify(item)
+      localStorage.setItem(key, newItemString)
     }
   }
 

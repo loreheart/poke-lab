@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import HomePage from './components/pages/HomePage.vue'
 import PokedexPage from './components/pages/PokedexPage.vue'
@@ -12,7 +12,7 @@ export const routes = [
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 })
 

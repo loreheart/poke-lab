@@ -9,10 +9,13 @@
     "preview": "vite preview",
     "test": "vitest --dom",
     "coverage": "vitest run --coverage",
-    "lint": "eslint"
+    "lint": "eslint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@apollo/client": "^3.11.4",
+    "@storybook/addon-docs": "^8.2.9",
     "@vue/apollo-components": "^4.0.0",
     "@vue/apollo-composable": "^4.1.0",
     "@vue/apollo-option": "^4.0.0",
@@ -24,17 +27,28 @@
     "vue-router": "^4.4.3"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.6.1",
     "@eslint/js": "^9.9.0",
     "@pinia/testing": "^0.1.5",
+    "@storybook/addon-essentials": "^8.2.9",
+    "@storybook/addon-interactions": "^8.2.9",
+    "@storybook/addon-links": "^8.2.9",
+    "@storybook/addon-onboarding": "^8.2.9",
+    "@storybook/blocks": "^8.2.9",
+    "@storybook/test": "^8.2.9",
+    "@storybook/vue3": "^8.2.9",
+    "@storybook/vue3-vite": "^8.2.9",
     "@vitejs/plugin-vue": "^5.1.2",
     "@vitest/coverage-v8": "^2.0.5",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.9.0",
+    "eslint-plugin-storybook": "^0.8.0",
     "eslint-plugin-vue": "^9.27.0",
     "globals": "^15.9.0",
     "happy-dom": "6.0.4",
     "postcss": "^8.4.41",
+    "storybook": "^8.2.9",
     "tailwindcss": "^3.4.9",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.1.0",
@@ -62,5 +76,10 @@
       "tailwindcss": {},
       "autoprefixer": {}
     }
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
   }
 }

@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 
-import { useLocalStorageStore } from '../../stores/localStorage'
+import { useLocalStorageStore } from '../../stores/local-storage-store'
 
 describe('Pokedex Page Store', () => {
   beforeEach(() => {

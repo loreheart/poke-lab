@@ -3,10 +3,21 @@ export const capitalize = (word: string) => {
 }
 
 export const makeUrlFriendly = (name: string) => {
-  console.log(name)
   return `${name}`.split('-').map(namePart => {
     return capitalize(namePart)
   }).join('%20')
+}
+
+export const getItem = <T,>(
+  items: T[],
+  index: number | string,
+  last: number = 1025
+) => {
+  const indexInt = parseInt(`${index}`)
+  
+  if (indexInt >= 1 && indexInt <= last) {
+    return items[indexInt]
+  }
 }
 
 export const getPrevItem = <T,>(

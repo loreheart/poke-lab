@@ -1,9 +1,11 @@
 <script setup lang="ts">
-  import { usePokedexPageStore } from '../../stores/pokedex'
-  import { Pokemon } from '../../types/index'
+  import { storeToRefs } from 'pinia'
+
+  import { usePokedexPageStore } from '../../stores'
 
   const pokedexStore = usePokedexPageStore()
-  const pokedex: Pokemon[] = pokedexStore.loadPokedex()
+  pokedexStore.loadPokedex()
+  const { nationalDex, pokedex } = storeToRefs(pokedexStore)
 </script>
 
 <template>
@@ -12,12 +14,19 @@
   <h2 class="text-2xl m-2">Stats</h2>
   <ul>
     <li v-if="pokedex">{{ pokedex.length }} Pokemon</li>
+    <li v-if="nationalDex">{{ Object.keys(nationalDex).length }} Pokemon Full Data Loaded Locally</li>
+  </ul>
+
+  <h2 class="text-2xl m-2">Current Features</h2>
+  <ul>
+    <li>Pokedex page</li>
+    <li>Pokemon detail page</li>
   </ul>
 
   <h2 class="text-2xl m-2">Features in Progress</h2>
   <ul>
-    <li>Pokedex page</li>
-    <li>Pokemon detail page</li>
+    <li>Pokedex page - enhancements</li>
+    <li>Pokemon detail page - enhancements</li>
   </ul>
 
   <h2 class="text-2xl m-2">Future Features Planned</h2>

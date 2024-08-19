@@ -5,7 +5,7 @@ import { createTestingPinia } from '@pinia/testing'
 
 import HomePage from '../../components/pages/HomePage.vue'
 import { mockRoute, mockRouter } from '../mocks/routing'
-import { usePokedexPageStore } from '../../stores/pokedex'
+import { usePokedexPageStore } from '../../stores/pokedex-store'
 import { Pokemon } from '../../types/index'
 
 const wrapper = mount(HomePage, {
