@@ -17,6 +17,7 @@ export const useBulbaStore = defineStore('bulba-store', () => {
   const hasLocalStorage = localStorageStore.ready
   savedPageKeys.value = localStorageStore.loadItem('bulba-pages') || []
 
+  // Bulbapedia blocks crossorigin, so all this is probably a no-go
   const loadBulbaPage = (pageName: string) => {
     const existsInLocal = savedPageKeys.value.includes(pageName)
     console.log(existsInLocal, pageName)
@@ -26,13 +27,16 @@ export const useBulbaStore = defineStore('bulba-store', () => {
     } else if (hasLocalStorage) {
       try {
         console.log('querying bulbapedia for page data')
-        axios.get(getBulbaPageUrl(pageName)).then((response) => {
+        axios.get('https://crossorigin.me/' + getBulbaPageUrl(pageName)).then((response) => {
           console.log('Response: ', response)
           // save to local
           // localStorageStore.setItem('bulba-page-' + pageName, )
+        }).catch((error) => {
+          console.warn('Error querying bulbapedia', error)
+          return new Error('Error querying bulbapedia')
         })
-      } catch(e) {
-        console.warn('Error querying bulbapedia', e)
+      } catch(error) {
+        console.warn('Error querying bulbapedia', error)
       }
     }
   }
