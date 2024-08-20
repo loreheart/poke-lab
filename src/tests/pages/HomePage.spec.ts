@@ -5,7 +5,7 @@ import { createTestingPinia } from '@pinia/testing'
 
 import HomePage from '../../components/pages/HomePage.vue'
 import { mockRoute, mockRouter } from '../mocks/routing'
-import { usePokedexPageStore } from '../../stores/pokedex-store'
+import { usePokedexStore } from '../../stores/pokedex-store'
 import { Pokemon } from '../../types/index'
 
 const wrapper = mount(HomePage, {
@@ -28,13 +28,13 @@ describe('Home Page Component', () => {
 
 
   it('Loads pokedex stats', () => {
-    const pokedexStore = usePokedexPageStore()
+    const pokedexStore = usePokedexStore()
     const pokedex: Pokemon[] = pokedexStore.loadPokedex()
     expect(pokedex.length).toBe(1025)
   })
 
   it('testing text', () => {
-    const pokedexStore = usePokedexPageStore()
+    const pokedexStore = usePokedexStore()
     pokedexStore.loadPokedex()
     expect(wrapper.text()).toContain('PokeLab Home')
   })

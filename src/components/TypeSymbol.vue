@@ -2,9 +2,6 @@
   import { gameTypeIcon, getPokeType } from '../helpers'
   import { pokeTypes } from '../data'
 
-  const getPokeTypeIcon = gameTypeIcon
-  const pokeTypeFull = getPokeType
-
   const props = defineProps({
     pokeTypeName: {
       type: String,
@@ -60,8 +57,8 @@
 <template>
   <div class="min-w-max m-2 py-1 px-1 gap-2 capitalize text-xl flex justify-center content-center"
     :class="`${loadSizeClass()} ${loadShapeClass()}`"
-    v-if="pokeTypeName" :style="{ backgroundColor: pokeTypeFull(pokeTypeName).color }">
-    <img class="h-full" :src="getPokeTypeIcon(pokeTypeName)" :alt="pokeTypeName">
+    v-if="pokeTypeName" :style="{ backgroundColor: getPokeType(pokeTypeName).color }">
+    <img class="h-full" :src="gameTypeIcon(pokeTypeName)" :alt="pokeTypeName">
     <div v-if="showName" class="flex flex-col justify-center">{{ pokeTypeName }}</div>
   </div>
 </template>

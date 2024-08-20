@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { storeToRefs } from 'pinia'
 
-  import { usePokedexPageStore } from '../../stores'
+  import { usePokedexStore } from '../../stores'
 
-  const pokedexStore = usePokedexPageStore()
+  const pokedexStore = usePokedexStore()
   pokedexStore.loadPokedex()
   const { nationalDex, pokedex } = storeToRefs(pokedexStore)
 </script>

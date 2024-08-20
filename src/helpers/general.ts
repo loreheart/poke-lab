@@ -41,3 +41,16 @@ export const getNextItem = <T,>(
     return items[+indexInt - 1 + 1]
   }
 }
+
+export const getItemsByDataPage = <T>(
+  items: T[],
+  page = 1,
+  perPage = 10
+): T[] => {
+  const startIndex = (page - 1) * perPage + 1
+  const endIndex = startIndex + (perPage - 1)
+  if (Array.isArray(items) && items.length >= startIndex) {
+    return items.slice(startIndex, endIndex)
+  }
+  return []
+}

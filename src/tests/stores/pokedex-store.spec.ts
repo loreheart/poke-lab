@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 
-import { usePokedexPageStore } from '../../stores/pokedex-store'
+import { usePokedexStore } from '../../stores/pokedex-store'
 import { Pokemon } from '../../types/index'
 
 describe('Pokedex Page Store', () => {
@@ -13,7 +13,7 @@ describe('Pokedex Page Store', () => {
   })
 
   it('Loads pokedex', () => {
-    const pokedexStore = usePokedexPageStore()
+    const pokedexStore = usePokedexStore()
     const pokedex: Pokemon[] = pokedexStore.loadPokedex()
     expect(pokedex.length).toBe(1025)
   })

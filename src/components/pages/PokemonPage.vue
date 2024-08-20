@@ -5,14 +5,14 @@
 
   import PokedexMiniNav from '../PokedexMiniNav.vue'
   import TypeSymbol from '../TypeSymbol.vue'
-  import { usePokedexPageStore } from '../../stores'
+  import { usePokedexStore } from '../../stores'
   import { PokemonFull } from '../../types'
   import { getBigBulbaImg, cleanUp, getPrevItem, getNextItem } from '../../helpers'
 
   const route = useRoute()
   const router = useRouter()
 
-  const pokedexStore = usePokedexPageStore()
+  const pokedexStore = usePokedexStore()
 
   const cleanUpFlavorText = cleanUp
   const getImageUrl = getBigBulbaImg

@@ -4,9 +4,9 @@
   import AppNavbar from './AppNavbar.vue'
   import AppFooter from './AppFooter.vue'
   import { NavItem } from '../types'
-  import { usePokedexPageStore } from '../stores'
+  import { usePokedexStore } from '../stores'
 
-  const pokedexPageStore = usePokedexPageStore()
+  const pokedexPageStore = usePokedexStore()
 
   const navItems: NavItem[] = [
     {

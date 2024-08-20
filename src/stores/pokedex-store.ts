@@ -9,7 +9,7 @@ import pokemon_by_national_id from '../queries/pokemon_by_national_id.gql'
 import { useLocalStorageStore } from './local-storage-store'
 import { splitForms } from '../helpers'
 
-export const usePokedexPageStore = defineStore('pokedex-page', () => {
+export const usePokedexStore = defineStore('pokedex-page', () => {
   let pokedexLoaded = false
 
   const localStorageStore = useLocalStorageStore()
@@ -32,7 +32,9 @@ export const usePokedexPageStore = defineStore('pokedex-page', () => {
   }
 
   const loadLocalNationalDex = () => {
-    nationalDex.value = localStorageStore.loadItem('national-dex')
+    if (hasLocalStorage) {
+      nationalDex.value = localStorageStore.loadItem('national-dex')
+    }
   }
 
   const hasNationalDexData = (dexNum: number): boolean => {

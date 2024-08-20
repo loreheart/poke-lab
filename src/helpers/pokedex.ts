@@ -17,7 +17,7 @@ export const gameTypeIcon = (typename: string) => {
 }
 
 export const getPokeType = (pokeTypeName: string) => {
-  return pokeTypes.find(pokeType => pokeType.name === pokeTypeName) || { color: 'grey' }
+  return pokeTypes.find(pokeType => pokeType.name === pokeTypeName) || pokeTypes[0]
 }
 
 // Clean up wierd invisible arrow characters

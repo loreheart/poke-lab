@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+  import { ref } from 'vue'
   import { useRouter } from 'vue-router'
 
   import FilterBar from '../../components/FilterBar.vue'
   import PokedexTile from '../../components/PokedexTile.vue'
-  import { usePokedexPageStore } from '../../stores'
+  import { usePokedexStore } from '../../stores'
   import { pokemonIsFromRegion } from '../../helpers'
   import { Pokemon } from '../../types'
   import { generations } from '../../data'
@@ -12,7 +12,7 @@ import { ref } from 'vue'
   const limit = ref(100)
   const generation = ref('')
   const router = useRouter()
-  const pokedexStore = usePokedexPageStore()
+  const pokedexStore = usePokedexStore()
   const pokedex: Pokemon[] = pokedexStore.loadPokedex()
   
   const selectPokemon = (pokemon: Pokemon) => {
