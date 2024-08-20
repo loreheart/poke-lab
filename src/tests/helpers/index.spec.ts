@@ -1,18 +1,9 @@
-import { capitalize } from 'vue'
-import { describe, expect, it, beforeEach } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { getBigBulbaImg } from '../../helpers'
 import { testPokemon, testParadoxPokemon } from '../mocks/pokemon'
 
 describe('Helper Functions', () => {
-  beforeEach(() => {
-
-  })
-
-  it('capitalize', () => {
-    expect(capitalize('bulbasaur')).toBe('Bulbasaur')
-  })
-
   it('getBigBulbaImg for one word pokemon', () => {
     const imageUrl = getBigBulbaImg(testPokemon)
     expect(imageUrl).not.toContain("bulbasaur")
