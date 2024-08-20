@@ -1,6 +1,7 @@
+import { capitalize } from 'vue'
 import { describe, expect, it, beforeEach } from 'vitest'
 
-import { capitalize, getBigBulbaImg } from '../../helpers'
+import { getBigBulbaImg } from '../../helpers'
 import { testPokemon, testParadoxPokemon } from '../mocks/pokemon'
 
 describe('Helper Functions', () => {
