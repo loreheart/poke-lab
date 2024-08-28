@@ -11,19 +11,14 @@
 
   const route = useRoute()
   const router = useRouter()
-
-  const pokedexStore = usePokedexStore()
-
-  const cleanUpFlavorText = cleanUp
-  const getImageUrl = getBigBulbaImg
+  const dexNum = route.params.id as string
 
   let selectedPokemon = ref()
   let prevPokemon = ref()
   let nextPokemon = ref()
 
+  const pokedexStore = usePokedexStore()
   const pokedex = pokedexStore.loadPokedex()
-
-  const dexNum = route.params.id as string
 
   pokedexStore.loadFullPokemon(+dexNum)
 
@@ -56,7 +51,7 @@
         <PokedexMiniNav :pokemon="prevPokemon" side="left" @updatePokemon="updatePokemonOnRoute(`${prevPokemon.id}`)" />
       </div>
       <div class="pokemon-view w-full h-92 flex justify-center">
-        <img class="" :src="getImageUrl(selectedPokemon)" :alt="selectedPokemon.name">
+        <img class="" :src="getBigBulbaImg(selectedPokemon)" :alt="selectedPokemon.name">
       </div>
       <div class="poke-info">
         <h1 class="text-4xl m-2 capitalize text-white font-bold">
@@ -84,7 +79,7 @@
       <div class="pokemon-view w-full h-92 text-red-800 font-bold" v-if="selectedPokemon">
         <div class="my-1 pb-2" v-for="flavor of selectedPokemon.specy.flavor.slice(0, 4)"
           :key="`flavor-text-${flavor.game.name}`">
-          {{ cleanUpFlavorText(flavor.flavor_text) }} -
+          {{ cleanUp(flavor.flavor_text) }} -
           <span class="capitalize">Pokemon {{ flavor.game.name }}</span>
         </div>
       </div>

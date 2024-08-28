@@ -12,7 +12,7 @@ export const useBulbaStore = defineStore('bulba-store', () => {
   
   // LocalStorage key pattern
   // 'bulba-pages'
-  // 'bulba-page-'
+  // 'bulba-page-<page-id>'
   const localStorageStore = useLocalStorageStore()
   const hasLocalStorage = localStorageStore.ready
   savedPageKeys.value = localStorageStore.loadItem('bulba-pages') || []
@@ -27,7 +27,7 @@ export const useBulbaStore = defineStore('bulba-store', () => {
     } else if (hasLocalStorage) {
       try {
         console.log('querying bulbapedia for page data')
-        axios.get('https://crossorigin.me/' + getBulbaPageUrl(pageName)).then((response) => {
+        axios.get(getBulbaPageUrl(pageName)).then((response) => {
           console.log('Response: ', response)
           // save to local
           // localStorageStore.setItem('bulba-page-' + pageName, )
