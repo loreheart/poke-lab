@@ -17,6 +17,10 @@
       text: "Pokedex",
       link: 'pokedex'
     },
+    {
+      text: "Living Dex",
+      link: 'living-dex'
+    },
   ]
 
   const route = useRoute()

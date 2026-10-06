@@ -38,10 +38,10 @@
   <h1 class="text-4xl m-2">Pokedex</h1>
   
   <FilterBar title="Limit" :options="limitOptions" :selected="limit"
-    @selectOption="(count) => limit = count" />
+    @selectOption="(count: number) => limit = count" />
   
   <FilterBar title="Region" :options="regionOptions" :selected="generation"
-    @selectOption="(region) => generation = region" />
+    @selectOption="(region: string) => generation = region" />
 
   <div class="pokedex flex flex-wrap justify-center" v-if="pokedex">
     <div class="pokemon-tileset" v-for="pokemon in limitPokedex(filterPokedex(pokedex))"
